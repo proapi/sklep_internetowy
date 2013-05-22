@@ -1,0 +1,74 @@
+<h2>Szczegóły artykułu</h2>
+
+<div>
+  <p>
+    <b>Nazwa:</b>
+    <%= @pack_machine.name %>
+  </p>
+
+  <p>
+    <b>Województwo:</b>
+    <%= @pack_machine.province %>
+  </p>
+
+  <p>
+    <b>Miasto, kod pocztowy:</b>
+    <%= @pack_machine.town %> <%= @pack_machine.postcode %>
+  </p>
+
+  <p>
+    <b>Ulica, nr:</b>
+    <%= @pack_machine.street %> <%= @pack_machine.building_number %>
+  </p>
+
+  <p>
+    <b>Współrzędne geograficzne:</b>
+    <%= @pack_machine.latitude %> / <%= @pack_machine.longitude %>
+  </p>
+
+  <p>
+    <b>Status:</b>
+    <%= @pack_machine.status %>
+  </p>
+
+  <p>
+    <b>Opis lokalizacji:</b>
+    <%= @pack_machine.location_description %>
+  </p>
+
+  <p>
+    <b>Godziny otwarcia:</b>
+    <%= @pack_machine.operating_hours %>
+  </p>
+
+  <p>
+    <b>Opis punktu płatności:</b>
+    <%= @pack_machine.payment_point_description %>
+  </p>
+
+  <p>
+    <b>Partner:</b>
+    <%= @pack_machine.partner_id %>
+  </p>
+
+  <p>
+    <b>Typ płatności:</b>
+    <%= @pack_machine.payment_type %>
+  </p>
+
+  <p>
+    <b>Dostępna płatność:</b>
+    <%= @pack_machine.payment_available? ? 'Tak' : 'Nie' %>
+  </p>
+
+  <p>
+    <b>Typ:</b>
+    <%= @pack_machine.machine_type %>
+  </p>
+
+  <br/>
+
+  <div style="text-align: center;">
+    <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, @pack_machine], :title => "Szczegóły" %>
+  </div>
+</div>

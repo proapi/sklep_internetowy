@@ -1,0 +1,57 @@
+<h2>Szczegóły artykułu</h2>
+
+<div>
+  <p>
+    <b>Tytuł: </b>
+    <%= h @article.title.blank? ? "Brak" : @article.title %>
+  </p>
+
+  <p>
+    <b>Podtytuł: </b>
+    <%= h @article.subtitle.blank? ? "Brak" : @article.subtitle %>
+  </p>
+
+  <%= @article.body.blank? ? "Brak treści" : @article.body %>
+
+  <p>
+    <b>Autor: </b>
+    <%= h @article.user.full_name %><br/>
+    <b>Data utworzenia: </b>
+    <%= l @article.created_at, :format => :long %><br/>
+    <b>Data modyfikacji: </b>
+    <%= l @article.updated_at, :format => :long %>
+  </p>
+
+  <h2>Zdjecie do artykułu:</h2>
+  <p>
+    <% if @article.photo %>
+        <%= link_to image_tag(@article.photo.image.url(:thumb), :alt => @article.photo.title, :title => "Szczegóły produktu", :class => "help"), @article %>
+    <% else %>
+        Brak wgranego zdjęcia dla tego artykułu!
+    <% end %>
+  </p>
+
+  <h2>Opcjonalne ustawienia metatag:</h2>
+  <p>
+    <b>Tytuł strony(metatag title):</b><br/>
+    <%= h @article.meta_title.blank? ? "Brak" : @article.meta_title %>
+  </p>
+
+  <p>
+    <b>Słowa kluczowe(metatag keywords):</b><br/>
+    <%= h @article.meta_keywords.blank? ? "Brak" : @article.meta_keywords %>
+  </p>
+
+  <p>
+    <b>Opis strony(metatag description):</b><br/>
+    <%= h @article.meta_description.blank? ? "Brak" : @article.meta_description %>
+  </p>
+
+  <br/>
+
+  <div style="text-align: center;">
+    <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, @article], :title => "Szczegóły" %>
+    <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_article_path(@article), :title => "Edycja" %>
+    <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, @article], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+  </div>
+</div>

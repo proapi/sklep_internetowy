@@ -1,0 +1,54 @@
+<div style="cursor: pointer;" id="product_<%= product_box.id %>" class="product_box">
+
+  <table>
+    <tr>
+      <td class="productPicture">
+        <% photo = product_box.photo %>
+        <% if photo %>
+            <%= link_to image_tag(photo.image.url(:thumb), :alt => photo.title, :title => "Szczegóły produktu", :class => "help"), product_path(product_box) %>
+        <% else %>
+            <%= link_to image_tag("brak.png", :alt => "Brak głównego obrazka produktu", :title => "Szczegóły produktu", :class => "help"), product_path(product_box) %>
+        <% end %>
+      </td>
+      <td>
+        <table>
+          <tr>
+            <td class="productPicture">
+              <%= link_to image_tag("icons/cart_add.png", :alt => "Dodaj produkt do koszyka", :size => "25x25", :title => "Dodaj produkt do koszyka", :class => "help"), {controller: "main", action: "add_to_cart", :product_id => product_box} %>
+            </td>
+          </tr>
+          <tr>
+            <td class="productPicture">
+              <%= link_to image_tag("icons/email.png", :alt => "Wyślij pytanie dotyczące produktu", :size => "28x28", :title => "Wyślij pytanie dotyczące produktu", :class => "help"), site_entries_path(:title => "Kontakt") %>
+            </td>
+          </tr>
+          <tr>
+            <td class="productPicture">
+              <%= image_tag("icons/phone.png", :alt => "Dodatkowe informacje na temat produktu pod numerem telefonu +48 52  581 52 90", :size => "25x25", :title => "Dodatkowe informacje na temat produktu pod numerem telefonu +48 52 581 52 90", :class => "help") %>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <%= link_to (product_box.name), product_path(product_box) %>
+  <%= tag("br") %>
+
+  <% if product_box.is_promotion %>
+      <div style="width: 100%; text-align: center; color: black; background: #E0E0E0;">
+        Stara cena:<br/><span style="font-weight: bold; text-decoration: line-through;">
+        <%= number_to_currency(product_box.price) %>
+          </span><br/>
+      </div>
+      <div style="width: 100%; text-align: center; color: black; background: #e5ea00;">
+        Aktualna cena:<br/><span style="font-weight: bold;">
+        <%= number_to_currency(product_box.final_price) %>
+          </span><br/>
+      </div>
+  <% else %>
+      <%= "Cena: #{number_to_currency(product_box.final_price)}" %>
+      <%= tag("br") %>
+  <% end %>
+  <span style="padding-left: 57px; text-align: right;"><%= link_to "Szczegóły książki", product_path(product_box) %></span><br/>
+</div>

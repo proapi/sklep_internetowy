@@ -1,0 +1,52 @@
+<h2>Szczegóły wydawcy</h2>
+
+<div>
+
+  <p>
+    <b>Nazwa:</b>
+    <%= h @producer.name %>
+  </p>
+
+  <p>
+    <b>Adres:</b>
+    <%= h @producer.address.blank? ? "Brak" : @producer.address %>
+  </p>
+
+  <p>
+    <b>Kod pocztowy, miasto:</b>
+    <%= h @producer.city.blank? ? "Brak" : @producer.city %>
+  </p>
+
+  <p>
+    <b>Email:</b>
+    <%= h @producer.email.blank? ? "Brak" : @producer.email %>
+  </p>
+
+  <p>
+    <b>Telefon:</b>
+    <%= h @producer.telephone.blank? ? "Brak" : @producer.telephone %>
+  </p>
+
+  <p>
+    <b>Strona www:</b>
+    <%= h @producer.www.blank? ? "Brak" : @producer.www %>
+  </p>
+
+  <p>
+    <b>Priorytet(niższy=ważniejszy):</b>
+    <%= h @producer.priority %>
+  </p>
+
+  <p>
+    <b>Opis:</b>
+    <%= h @producer.description.blank? ? "Brak" : @producer.description %>
+  </p>
+
+  <br/>
+
+  <div style="text-align: center;">
+    <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, @producer], :title => "Szczegóły" %>
+    <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_producer_path(@producer), :title => "Edycja" %>
+    <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, @producer], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<%= form_for(@admin_pack_machine) do |f| %>
+  <% if @admin_pack_machine.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin_pack_machine.errors.count, "error") %> prohibited this admin_pack_machine from being saved:</h2>
+
+      <ul>
+      <% @admin_pack_machine.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :province %><br />
+    <%= f.text_field :province %>
+  </div>
+  <div class="field">
+    <%= f.label :postcode %><br />
+    <%= f.text_field :postcode %>
+  </div>
+  <div class="field">
+    <%= f.label :town %><br />
+    <%= f.text_field :town %>
+  </div>
+  <div class="field">
+    <%= f.label :street %><br />
+    <%= f.text_field :street %>
+  </div>
+  <div class="field">
+    <%= f.label :building_number %><br />
+    <%= f.text_field :building_number %>
+  </div>
+  <div class="field">
+    <%= f.label :latitude %><br />
+    <%= f.text_field :latitude %>
+  </div>
+  <div class="field">
+    <%= f.label :longitude %><br />
+    <%= f.text_field :longitude %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :location_description %><br />
+    <%= f.text_field :location_description %>
+  </div>
+  <div class="field">
+    <%= f.label :operating_hours %><br />
+    <%= f.text_field :operating_hours %>
+  </div>
+  <div class="field">
+    <%= f.label :payment_point_description %><br />
+    <%= f.text_field :payment_point_description %>
+  </div>
+  <div class="field">
+    <%= f.label :partner_id %><br />
+    <%= f.text_field :partner_id %>
+  </div>
+  <div class="field">
+    <%= f.label :payment_type %><br />
+    <%= f.text_field :payment_type %>
+  </div>
+  <div class="field">
+    <%= f.label :payment_available %><br />
+    <%= f.text_field :payment_available %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br />
+    <%= f.text_field :type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,81 @@
+<%= content_for :meta do %>
+    <% unless @entry.meta_title.blank? %>
+        <title><%= @entry.meta_title %></title>
+    <% else %>
+        <title>Wydawnictwo Gaj</title>
+    <% end %>
+
+    <% unless @entry.meta_keywords.blank? %>
+        <meta name="keywords" content="<%= @entry.meta_keywords %>"/>
+    <% else %>
+        <meta name="keywords" content="poradnik, ksiezycowy, ekologiczny, zielarskie, poradniki, apteczka, zdrowia, zdrowie, ekologia, zbigniew przybylak, eko arka, biokurier"/>
+    <% end %>
+
+    <% unless @entry.meta_description.blank? %>
+        <meta name="description" content="<%= @entry.meta_description %>"/>
+    <% else %>
+        <meta name="description" content="Ekologiczny Poradnik Księżycowy, Poradniki Zielarskie, Żywność Ekologiczna, Ogrodnictwo Ekologiczne - Wydawnictwo Gaj, nasze tematy to zdrowie i ekologia"/>
+    <% end %>
+<% end %>
+
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  <%= @entry.title %>
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash(flash) %>
+
+  <%= raw @entry.body %>
+
+
+  <% if @entry.category %>
+      <br/>
+
+      <h3>
+        <%= raw ("LISTA KSIĄŻEK KATEGORII: " + link_to(@entry.category.name, products_path(:search => {:categories_id_eq => @entry.category.id}))) %>
+      </h3>
+      <br/>
+
+      <div id="pagination_div_1" style="font-size: 10px; text-align: center;">
+        <%= page_entries_info @products, html: false %>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <%= form_for @search, :url => site_entries_url, :html => {method: :get, class: 'sort-form', style: 'display: inline;'} do |f| %>
+            <%= f.label "Sortuj wg: " %>
+            <%= hidden_field_tag :title, @entry.title %>
+            <%= f.select :meta_sort, options_for_select([["Domyślnie", ""], ["Tytuł a-z", "name.asc"], ["Tytuł z-a", "name.desc"], ["Cena rosnąco", "final_price.asc"], ["Cena malejąco", "final_price.desc"], ["Wydawca a-z", "producer_name.asc"], ["Wydawca z-a", "producer_name.desc"]], [@search.search_attributes["meta_sort"]]), {}, class: 'sort-select' %>
+            <%= select_tag :per_page, options_for_select([["5", 5], ["10", 10], ["20", 20], ["50", 50]], [params[:per_page] || 20]), class: 'sort-select' %>
+            <%= f.hidden_field :categories_id_eq, :value => @entry.category.id %>
+        <% end %>
+        <% if @products.total_pages > 1 %>
+            &nbsp;&nbsp;|&nbsp;&nbsp;Strona:&nbsp;
+        <% end %>
+        <%= will_paginate(@products, {:inner_window => "1", :outer_window => "1", :style => 'display: inline;'}) %>
+      </div>
+
+      <div class="textSeparator"></div>
+
+      <div id="product_list_items">
+        <%= render :partial => "products/product_list_item", :collection => @products %>
+      </div>
+
+      <div id="pagination_div_2" style="font-size: 11px; text-align: center;">
+        <% if @products.total_pages > 1 %>
+            Strona:&nbsp;
+        <% end %>
+        <%= will_paginate(@products, {:inner_window => "1", :outer_window => "1", :style => 'display: inline;'}) %>
+      </div>
+
+      <br/><br/>
+  <% end %>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

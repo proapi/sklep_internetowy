@@ -1,0 +1,62 @@
+<h2>Nowy artykuł</h2>
+
+<%= form_for([:admin, @article], :html => {:multipart => true}) do |f| %>
+    <% if @article.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wystąpiły następujące błędy:</h2>
+          <ul>
+            <% @article.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <p>
+      <%= f.label :title, "Tytuł:" %><br/>
+      <%= f.text_field :title %>
+    </p>
+    <p>
+      <%= f.label :subtitle, "Podtytuł:" %><br/>
+      <%= f.text_field :subtitle %>
+    </p>
+    <p>
+      <%= f.label :body, "Treść:" %><br/>
+      <%= f.text_area :body, :class => "mceEditor" %>
+    </p>
+    <p>
+      <%= f.label :ready, "Do publikacji:" %><br/>
+      <%= f.check_box :ready %>
+    </p>
+    <p>
+      <%= f.label :user_id, current_user.full_name %><br/>
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+    </p>
+    <h2>Zdjęcie do artykułu:</h2>
+    <%= f.fields_for :photo do |photo_form| %>
+        <p>
+          <%= photo_form.label :title, 'Tytuł zdjęcia:' %><br/>
+          <%= photo_form.text_field :title %>
+        </p>
+        <p>
+          <%= photo_form.label :image, 'Plik zdjęcia:' %><br/>
+          <%= photo_form.file_field :image %>
+        </p>
+    <% end %>
+    <h2>Opcjonalne ustawienia metatag:</h2>
+    <p>
+      <%= f.label :meta_title, "Tytuł strony(metatag title):" %><br/>
+      <%= f.text_field :meta_title %>
+    </p>
+    <p>
+      <%= f.label :meta_keywords, "Słowa kluczowe(metatag keywords):" %><br/>
+      <%= f.text_field :meta_keywords %>
+    </p>
+    <p>
+      <%= f.label :meta_description, "Opis strony(metatag description):" %><br/>
+      <%= f.text_field :meta_description %>
+    </p>
+    <p>
+      <%= f.submit 'Zapisz' %>
+    </p>
+<% end %>

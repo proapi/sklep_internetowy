@@ -1,0 +1,44 @@
+<h2>Edycja strony</h2>
+
+<%= form_for([:admin, @entry]) do |f| %>
+    <% if @entry.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wystąpiły następujące błędy:</h2>
+          <ul>
+            <% @entry.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <p>
+      <%= f.label :title, "Tytuł:" %><br/>
+      <%= f.text_field :title %>
+    </p>
+    <p>
+      <%= f.label :body, "Treść:" %><br/>
+      <%= f.text_area :body, :class => "mceEditor", :style => "width: 100%; height: 400px;" %>
+    </p>
+    <h2>Opcjonalne ustawienia metatag:</h2>
+    <p>Jeżeli pozostawione puste, zostaną zastąpione domyślnymi tagami ustalonymi dla całej strony.</p>
+    <p>
+      <%= f.label :meta_title, "Tytuł strony(metatag title):" %><br/>
+      <%= f.text_field :meta_title, style: 'width:100%;' %>
+    </p>
+    <p>
+      <%= f.label :meta_keywords, "Słowa kluczowe(metatag keywords):" %><br/>
+      <%= f.text_field :meta_keywords, style: 'width:100%;' %>
+    </p>
+    <p>
+      <%= f.label :meta_description, "Opis strony(metatag description):" %><br/>
+      <%= f.text_field :meta_description, style: 'width:100%;' %>
+    </p>
+    <p>
+      <%= f.label :category_id, "Kategoria powiązana:" %><br/>
+      <%= f.collection_select :category_id, @categories, :id, :name, :include_blank => "Brak" %>
+    </p>
+    <p>
+      <%= f.submit 'Zapisz' %>
+    </p>
+<% end %>

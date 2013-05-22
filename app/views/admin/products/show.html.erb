@@ -1,0 +1,128 @@
+<h2>Szczegóły książki</h2>
+
+<div>
+  <h3>Dane:</h3>
+
+  <p>
+    <b>Tytuł książki:</b>
+    <%= h @product.name %>
+  </p>
+
+  <p>
+    <b>Opis:</b>
+    <%= @product.description %>
+  </p>
+
+  <p>
+    <b>Wydawca:</b>
+    <% if @product.producer.nil? %>
+        <%= "Brak" %>
+    <% else %>
+        <%= h @product.producer.name %>
+    <% end %>
+  </p>
+
+  <p>
+    <b>Autor:</b>
+    <%= @product.author %>
+  </p>
+
+  <p>
+    <b>Format książki:</b>
+    <%= @product.book_format %>
+  </p>
+
+  <p>
+    <b>Ilość stron:</b>
+    <%= @product.page_count %>
+  </p>
+
+  <p>
+    <b>Kategorie:</b>
+    <% @product.categories.each do |cat| %>
+        <%= h cat.name %>&nbsp;
+    <% end %>
+  </p>
+
+  <p>
+    <b>Cena brutto książki:</b>
+    <%= h @product.price %>
+  </p>
+
+  <p>
+    <b>Rabat [%]:</b>
+    <%= h @product.discount %>
+  </p>
+
+  <p>
+    <b>Cena końcowa brutto rabat/promocja [PLN]</b>
+    <%= @product.final_price %>
+  </p>
+
+  <p>
+    <b>Książka publikowana na stronach sklepu:</b>
+    <%= @product.visible? ? "Tak" : "Nie" %>
+  </p>
+
+  <p>
+    <b>Ilość sprzedanych egzemplarzy:</b>
+    <%= @product.hits_quantity %>
+  </p>
+
+  <br/>
+
+  <h3>Okładka książki</h3>
+
+  <p>
+    <% if @product.photo %>
+        <%= link_to image_tag(@product.photo.image.url(:thumb), :alt => @product.photo.title, :title => "Szczegóły produktu", :class => "help"), @product %>
+    <% else %>
+        Brak okładki!
+    <% end %>
+  </p>
+
+  <h3>Promocja</h3>
+
+  <% if @product.promotion? %>
+      <p>
+        <b>Aktualna promocja:</b>
+      </p>
+
+      <p>
+        <b>Cena promocji brutto:</b>
+        <%= h @product.promotion_price %>
+      </p>
+
+      <p>
+        <b>Tekst promocji:</b>
+        <%= h @product.promotion_text %>
+      </p>
+  <% else %>
+      <p><b>Brak promocji</b></p>
+  <% end %>
+
+  <h3>Opcjonalne ustawienia metatag:</h3>
+
+  <p>
+    <b>Tytuł strony(metatag title):</b><br/>
+    <%= h @product.meta_title.blank? ? "Brak" : @product.meta_title %>
+  </p>
+
+  <p>
+    <b>Słowa kluczowe(metatag keywords):</b><br/>
+    <%= h @product.meta_keywords.blank? ? "Brak" : @product.meta_keywords %>
+  </p>
+
+  <p>
+    <b>Opis strony(metatag description):</b><br/>
+    <%= h @product.meta_description.blank? ? "Brak" : @product.meta_description %>
+  </p>
+
+  <br/>
+
+  <div style="text-align: center;">
+    <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, @product], :title => "Szczegóły" %>
+    <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_product_path(@product), :title => "Edycja" %>
+    <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, @product], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+  </div>
+</div>

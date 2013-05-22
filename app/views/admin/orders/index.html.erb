@@ -1,0 +1,73 @@
+<h2>Lista zamówień</h2>
+
+<% unless @orders.empty? %>
+    <div style="text-align: center;">
+      <%= will_paginate(@orders) %>
+    </div>
+
+    <table style="width: 100%">
+      <tr>
+        <th style="width: 20px;">Numer</th>
+        <th>Klient</th>
+        <th>Adres</th>
+        <th>Status</th>
+        <th>Wysyłka</th>
+        <th>Kwota</th>
+        <th style="width: 160px;"></th>
+      </tr>
+
+      <% @orders.each do |order| %>
+          <tr>
+            <td><%= h link_to order.number, [:admin, order] %></td>
+            <td>
+              <% if order.client %>
+                  <%= h link_to order.client.full_name, admin_client_path(order.client) %>
+              <% else %>
+                  <%= order.full_name %>
+              <% end %>
+            </td>
+            <td>
+              <%= "#{order.street} #{order.building_no}" %><%= order.place_no.blank? ? "" : "/#{order.place_no} " %><%= " #{order.code} #{order.city}" %>
+            </td>
+            <td>
+              <div id="<%= "status_#{order.id}" %>">
+                <%= order.status_text %>
+              </div>
+            </td>
+            <td>
+              <% if order.delivery_method.eql?('Poczta Polska') %>
+                  <%= order.delivery_method %>
+              <% else %>
+                  <%= "#{order.pack_machine_id? ? order.pack_machine.to_s : "Brak informacji"}" %>
+              <% end %>
+            </td>
+            <td>
+              <%= number_to_currency(order.total + order.delivery_payment)  %>
+            </td>
+            <td>
+              <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, order], :title => "Szczegóły" %>
+              <%= link_to image_tag("icons/padlock.png", :size => "16x16"), {:controller => "admin/orders", :action => "mark_as_sent", :id => order, :status => 4}, {:remote => true, :title => "Oznacz jako przedsprzedaż"} %>
+              <%= link_to image_tag("icons/delete.png", :size => "16x16"), {:controller => "admin/orders", :action => "mark_as_sent", :id => order, :status => 6}, {:remote => true, :title => "Oznacz jako anulowane"} %>
+              <%= link_to image_tag("icons/email.png", :size => "16x16"), {:controller => "admin/orders", :action => "mark_as_sent", :id => order, :status => 5}, {:remote => true, :title => "Wyślij powiadomienie do klienta"} %>
+              <%= link_to image_tag("icons/delivery.png", :size => "16x16"), {:controller => "admin/orders", :action => "mark_as_sent", :id => order, :status => 3}, {:remote => true, :title => "Oznacz jako zrealizowane"} %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <div style="text-align: center;">
+      <%= will_paginate(@orders) %>
+    </div>
+<% else %>
+    <p>Brak zamówień!</p>
+<% end %>
+
+<%= form_for @search, :url => admin_orders_path, :html => {:method => :get} do |f| %>
+    <%= f.label "Numer" %><%= f.text_field :number_like %>
+    <%= f.label "Nazwisko" %><%= f.text_field :client_last_name_like %>
+    <%= f.label "Status" %><%= f.select :status_eq, options_for_select([["Oczekuje", 2], ["Zrealizowane", 3], ["Przedsprzedaż", 4], ["Wysłano powiadomienie", 5], ["Anulowane", 6]]), :include_blank => "Wszystkie" %>
+    <br/>
+    <%= f.label "Sort: " %><%= f.sort_link :number, " numer " %><%= f.sort_link :status, " status " %>
+    <br/>
+    <%= f.submit "Filtr", :name => nil %>
+<% end %>

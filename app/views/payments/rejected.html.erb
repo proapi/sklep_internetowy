@@ -1,0 +1,36 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  BŁĄD PŁATNOŚCI
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash flash %>
+
+  <br/>
+
+  <p style="font-weight: bold; color: red;">Przepraszamy, wystąpił błąd przy realizacji płatności w systemie płatności on-line PayU(Platnosci.pl).
+    <br/><br/>Prosimy skontaktować się z obsługą sklepu, w celu wyjaśnienia problemu.<br/><a href="http://wydawnictwogaj.pl/entries/site?title=Kontakt">Kontakt z nami</a></p>
+
+  <br><br/>
+
+  <div style="text-align: center;">
+    <%= image_tag 'graph/payu_logo.jpg' %>
+  </div>
+
+  <br/>
+
+  <div style="text-align: center; margin-top: 10px;">
+    <br/><%= button_to "Powrót na stronę główną", root_url, method: :get %>
+  </div>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

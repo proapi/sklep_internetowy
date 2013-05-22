@@ -1,0 +1,179 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  ZAMÓWIENIE KROK PIERWSZY
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash flash %>
+
+  <div style="text-align: center">
+    <%= image_tag("graph/pasek1.jpg") %>
+  </div>
+
+  <h2>Etap zamówienia: dane teleadresowe(krok 1 z 4)</h2>
+
+  <p>Aby poprawnie złożyć zamówienie, należy przejść wszystkie kroki. Potwierdzeniem poprawnego złożenia zamówienia w
+    sklepie jest otrzymanie wiadomości e-mail na wskazany przy rejestracji adres.</p>
+
+  <%= form_for(@order) do |f| %>
+      <% if @order.errors.any? %>
+          <div id="error_explanation">
+            <h2>Wystąpiły następujące błędy:</h2>
+            <ul>
+              <% @order.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <p style="font-weight: bold;">
+        <%= raw("Oświadczam, że zapoznałem się z #{link_to "regulaminem", site_entries_path(title: "Regulamin")} na stronie sklepu wydawnictwogaj.pl i akceptuję jego warunki:") %>
+        <%= f.check_box :agreement %>
+      </p>
+
+      <% if @order.client %>
+          <h3>Adres płatnika:</h3>
+          <table style="margin-left: 70px;">
+            <tr>
+              <td>
+                <%= "Ulica(nazwa wsi):" %>
+              </td>
+              <td>
+                <%= @order.client.street %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= "Numer budynku:" %>
+              </td>
+              <td>
+                <%= @order.client.building_no %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= "Numer lokalu:" %>
+              </td>
+              <td>
+                <%= @order.client.place_no %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= "Miasto(poczta):" %>
+              </td>
+              <td>
+                <%= @order.client.city %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= "Kod pocztowy:" %>
+              </td>
+              <td>
+                <%= @order.client.code %>
+              </td>
+            </tr>
+          </table>
+
+          <h3>Adres do wysyłki:</h3>
+
+          <p>Proszę wypełnić tylko w przypadku, gdy adres do wysyłki ma być inny niż podany powyżej przy rejestracji
+            konta
+            użytkownika.</p>
+
+      <% else %>
+          <h3>Adres do wysyłki:</h3>
+      <% end %>
+      <table style="margin-left: 70px;">
+        <tr>
+          <td>
+            <%= f.label :full_name, "Imię i nazwisko(nazwa):" %>
+          </td>
+          <td>
+            <%= f.text_field :full_name, :value => @order.full_name ||= (@order.client.nil? ? "" : @order.client.full_name) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :street, "Ulica(nazwa wsi):" %>
+          </td>
+          <td>
+            <%= f.text_field :street, :value => @order.street ||= @order.client.nil? ? "" : @order.client.street %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :building_no, "Numer budynku:" %>
+          </td>
+          <td>
+            <%= f.text_field :building_no, :value => @order.building_no ||= @order.client.nil? ? "" : @order.client.building_no %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :place_no, "Numer lokalu:" %>
+          </td>
+          <td>
+            <%= f.text_field :place_no, :value => @order.place_no ||= @order.client.nil? ? "" : @order.client.place_no %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :city, "Miasto(poczta):" %>
+          </td>
+          <td>
+            <%= f.text_field :city, :value => @order.city ||= @order.client.nil? ? "" : @order.client.city %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :code, "Kod pocztowy:" %>
+          </td>
+          <td>
+            <%= f.text_field :code, :value => @order.code ||= @order.client.nil? ? "" : @order.client.code %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :email, "Adres email:" %>
+          </td>
+          <td>
+            <%= f.text_field :email, :value => @order.email ||= @order.client.nil? ? "" : @order.client.email %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :email_confirmation, "Powtórz adres email:" %>
+          </td>
+          <td>
+            <%= f.text_field :email_confirmation, :value => @order.email ||= @order.client.nil? ? "" : @order.client.email %>
+          </td>
+        </tr>
+      </table>
+
+      <h3>Uwagi do zamówienia:</h3>
+      <%= f.text_area :notice, value: @order.notice, :rows => 10, :style => "width: 100%;" %>
+      <p>
+        <%= f.submit 'Dalej', :style => "font-size: 15px; float: right;" %>
+        <%= f.submit "Wstecz", :style => "font-size: 15px; float: left;", :name => "back_button" unless @order.first_step? %>
+      </p>
+      <br/>
+  <% end %>
+
+  <div style="text-align: center; margin-top: 10px;">
+    <br/><%= button_to "Powrót do zakupów w sklepie", root_url, method: :get %>
+  </div>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

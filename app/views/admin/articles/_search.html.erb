@@ -1,0 +1,9 @@
+<%= render :partial => "shared/admin_top" %>
+
+<h3>Wyszukaj artykuł</h3>
+
+<%= form_for(:article, url: admin_articles_path, :method => :get, :html => {:class => "searchform"}) do |f| %>
+    <%= f.autocomplete_field :title, autocomplete_article_title_admin_articles_path %>
+<% end %>
+
+<%= render :partial => "shared/admin_bottom" %>

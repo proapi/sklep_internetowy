@@ -1,0 +1,50 @@
+<h2>Lista klientów</h2>
+
+<% unless @clients.empty? %>
+    <div style="text-align: center;">
+      <%= will_paginate(@clients) %>
+    </div>
+
+    <table style="width: 100%;">
+      <tr>
+        <th>Nazwa</th>
+        <th>Email</th>
+        <th>Telefon</th>
+        <th>Miasto</th>
+        <th style="width: 130px;"> </th>
+      </tr>
+
+      <% @clients.each do |client| %>
+          <tr>
+            <td><%= h client.full_name %></td>
+            <td><%= h client.email %></td>
+            <td><%= client.telephone.blank? ? 'Brak' : client.telephone %></td>
+            <td><%= h client.city %></td>
+            <td>
+              <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, client], :title => "Szczegóły" %>
+              <%= link_to image_tag("icons/letter.png", :size => "16x16"), new_admin_message_path(client_id: client.id), :title => "Wyślij wiadomość do Klienta" %>
+              <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_client_path(client), :title => "Edycja" %>
+              <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, client], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <div style="text-align: center;">
+      <%= will_paginate(@clients) %>
+    </div>
+<% else %>
+    <p>Brak klientów!</p>
+<% end %>
+
+<%= form_for @search, :url => admin_clients_path, :html => {:method => :get} do |f| %>
+    <%= f.label "Nazwa" %><%= f.text_field :name_like %>
+    <%= f.label "Email" %><%= f.text_field :email_like %>
+    <%= f.label "Telefon" %><%= f.text_field :telephone_like %>
+    <%= f.label "Miasto" %><%= f.text_field :city_like %>
+    <br/>
+    <%= f.label "Sort: " %><%= f.sort_link :email, " email " %><%= f.sort_link :name, " nazwa " %><%= f.sort_link :city, " miasto " %><%= f.sort_link :telephone, " telefon " %>
+    <br/>
+    <%# TODO znaleźć sposób na umieszczenie reset button w każdym z tych formularzy %>
+    <%= f.submit "Filtr", :name => nil %>
+<% end %>

@@ -1,0 +1,41 @@
+<%= content_for :meta do %>
+    <% unless @entry.meta_title.blank? %>
+        <title><%= @entry.meta_title %></title>
+    <% else %>
+        <title><%= @entry.title %></title>
+    <% end %>
+
+    <% unless @entry.meta_keywords.blank? %>
+        <meta name="keywords" content="<%= @entry.meta_keywords %>"/>
+    <% else %>
+        <meta name="keywords" content="poradnik, ksiezycowy, ekologiczny, zielarskie, poradniki, apteczka, zdrowia, zdrowie, ekologia, zbigniew przybylak, eko arka, biokurier"/>
+    <% end %>
+
+    <% unless @entry.meta_description.blank? %>
+        <meta name="description" content="<%= @entry.meta_description %>"/>
+    <% else %>
+        <meta name="description" content="Ekologiczny Poradnik Księżycowy, Poradniki Zielarskie, Żywność Ekologiczna, Ogrodnictwo Ekologiczne - Wydawnictwo Gaj, nasze tematy to zdrowie i ekologia"/>
+    <% end %>
+<% end %>
+
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  <%= @entry.title %>
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash(flash) %>
+
+  <%= @entry.body %>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

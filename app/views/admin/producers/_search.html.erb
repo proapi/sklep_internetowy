@@ -1,0 +1,9 @@
+<%= render :partial => "shared/admin_top" %>
+
+<h3>Wyszukaj wydawcę</h3>
+
+<%= form_for(:producer, url: admin_producers_path, :method => :get, :html => {:class => "searchform"}) do |f| %>
+    <%= f.autocomplete_field :name, autocomplete_producer_name_admin_producers_path %>
+<% end %>
+
+<%= render :partial => "shared/admin_bottom" %>

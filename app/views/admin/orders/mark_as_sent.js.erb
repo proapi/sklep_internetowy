@@ -1,0 +1,1 @@
+$("#status_<%= escape_javascript(@order.id.to_s) %>").html("<%= escape_javascript(@order.status_text) %>");

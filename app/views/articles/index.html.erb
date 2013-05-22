@@ -1,0 +1,51 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  AKTUALNOŚCI
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash(flash) %>
+
+  <% photos = Photo.rotator %>
+  <% if photos.size > 0 %>
+      <div id="slideshow" class="pics">
+        <div id="nav" style=" left: <%= "#{280-(photos.size*13)}px" %>"></div>
+        <div id="buttons"><a id="prev" href="#"><</a><a id="next" href="#">></a></div>
+
+        <% photos.each do |photo| %>
+            <a class="img-link" href="<%= photo.rotator_link %>">
+              <%= image_tag photo.image.url(:original), :size => "560x350" %>
+            </a>
+        <% end %>
+      </div>
+  <% end %>
+
+  <div style="margin-top: 20px;"></div>
+
+  <% if @articles.empty? %>
+      <p>Brak aktualności.</p>
+  <% else %>
+      <div id="pagination_div_1" style="font-size: 11px; text-align: right;">
+        <%= will_paginate(@articles) %>
+      </div>
+
+      <div class="textSeparator"></div>
+
+      <%= render @articles %>
+
+      <div id="pagination_div_2" style="font-size: 11px; text-align: right;">
+        <%= will_paginate(@articles) %>
+      </div>
+  <% end %>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

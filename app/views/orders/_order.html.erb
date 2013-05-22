@@ -1,0 +1,73 @@
+<% total = 0 -%>
+
+<% unless @order_items.empty? %>
+    <table cellpadding="0" cellspacing="0" class="tabelka" style="text-align: center; width: 100%;">
+      <tr>
+        <th colspan="2">Książka</th>
+        <th style="width: 40px;">Ilość</th>
+        <th>Cena</th>
+        <th>Usuń</th>
+      </tr>
+      <% for item in @order_items -%>
+          <% total += item.product.final_price.to_f*item.quantity -%>
+          <tr>
+            <td style="text-align: left;">
+              <% photo = item.product.photo %>
+              <% if photo %>
+                  <%= link_to image_tag(photo.image.url(:thumb), :alt => photo.title, :style => "margin: 3px; border: 0; vertical-align: middle;", :title => "Szczegóły produktu", :class => "help"), product_path(item.product) %>
+              <% else %>
+                  <%= link_to image_tag("brak.png", :style => "border: 0; vertical-align: middle;", :title => "Szczegóły produktu", :class => "help"), product_path(item.product) %>
+              <% end %>
+            </td>
+            <td>
+              <p><%= item.product.name %></p></td>
+            <td>
+              <%= link_to (image_tag "icons/add.png", :style => "margin-left: 3px; border: 0; width: 20px; height: 20px;", :title => "Dodaj jednostkę produktu do koszyka", :class => "help"), {:controller => "main", :action => "inc_order_item", :product_id => item.product}, :remote => true %>
+              <br/>
+              <span style="font-weight: bold;" id="order_item_quantity_<%= item.id %>"><%= item.quantity %></span><br/>
+              <%= link_to (image_tag "icons/remove.png", :style => "margin-top: 2px; border: 0;width: 20px; height: 20px;", :title => "Odejmij jednostkę produktu z koszyka", :class => "help"), {:controller => "main", :action => "dec_order_item", :product_id => item.product}, :remote => true %>
+            </td>
+            <td><%= number_to_currency(item.product.final_price) %></td>
+            <td><%= link_to image_tag("icons/trash.png", :size => "20x20", :alt => "Usuń produkt z koszyka", :style => "border: 0;", :title => "Usuń produkt z koszyka", :class => "help"), {:controller => "main", :action => "remove_from_cart", :product_id => item.product}, :remote => true %></td>
+          </tr>
+      <% end %>
+    </table>
+    <br/>
+    <div style="text-align: right;">
+      Całkowita wartość zamówienia:<br/>
+      <strong><%= "#{number_to_currency(total)}" %></strong>
+    </div> <br/>
+
+    <% if total < 9.49 %>
+        <div style="color: red; text-align: center;">
+          <strong>UWAGA!</strong><br/>
+          Nie została przekroczona minimalna wartość zamówienia(minimum: 9,49 zł).<br/>Do realizacji zamówienia brakuje
+          jeszcze: <b><%= number_to_currency(9.49-total) %></b>
+          <br/>Przepraszamy za tą niedogodność,<br/>w zamian za to gwarantujemy ZAWSZE darmową przesyłkę.<br/>Polecamy
+          niedrogie i praktyczne poradniki z serii
+          <a href="http://wydawnictwogaj.pl/products?search[categories_id_eq]=22">Poradniki zielarskie</a><br/><br/>
+        </div>
+    <% else %>
+        <p style="float: right; text-align: right;">
+          <%= button_to "Przejdź do kasy", new_order_path, method: :get, style: "float: right;" %>
+          <br/><br/>
+        </p>
+    <% end %>
+
+<% else %>
+    <p style="text-align: center;">Aktualnie koszyk jest pusty.<br/>Brak produktów w koszyku.</p>
+<% end %>
+
+<div style="text-align: center;">
+  <br/><%= button_to "Powrót do zakupów w sklepie", root_url, method: :get %>
+</div>
+
+<% if total < 9.49 %>
+    <br/>
+    <h4>Polecane produkty z kategorii <a href="http://wydawnictwogaj.pl/products?search[categories_id_eq]=22">Poradniki zielarskie</a></h4>
+    <div class="textSeparator"></div>
+
+    <div id="product_list_items">
+      <%= render :partial => "products/product_list_item", :collection => Product.random_to_basket %>
+    </div>
+<% end %>

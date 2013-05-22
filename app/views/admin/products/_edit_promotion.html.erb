@@ -1,0 +1,41 @@
+<div id="tabs">
+  <%= link_to "Dane", edit_admin_product_path(@product, :destination => "data") %>
+  <a id="selected" href="#">Promocja</a>
+  <%= link_to "Edytuj treść opisu", "/editor" + product_path(@product), :target => "_blank" %>
+  <!--<li><%# link_to "Powiązane", edit_admin_product_path(@product, :destination => "relations") %></li> -->
+</div>
+
+<br/>
+
+<div>
+  <%= form_for([:admin, @product]) do |f| %>
+      <% if @product.errors.any? %>
+          <div id="error_explanation">
+            <h2>Wystąpiły następujące błędy:</h2>
+            <ul>
+              <% @product.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+      <p>
+        <%= f.label :is_promotion, "Aktywacja promocji" %><br/>
+        <%= f.check_box :is_promotion %>
+      </p>
+
+      <p>
+        <%= f.label :promotion_price, "Cena promocji [netto PLN]" %><br/>
+        <%= f.text_field :promotion_price %>
+      </p>
+
+      <p>
+        <%= f.label :promotion_text, "Tekst promocji" %><br/>
+        <%= f.text_field :promotion_text %>
+      </p>
+
+      <p>
+        <%= f.submit "Zapisz zmiany" %>
+      </p>
+  <% end %>
+</div>

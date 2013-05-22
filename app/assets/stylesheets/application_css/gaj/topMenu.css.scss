@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+#leftTopMenu {
+    padding: 0px;
+    margin: 0px;
+    float: left;
+    height: 20px;
+    width: 500px;
+    cursor: pointer;
+}
+
+#topMenu {
+    padding: 0;
+    margin: 0;
+    float: right;
+    height: 20px;
+    width: 500px;
+    text-decoration: none;
+    font-size: 12px;
+    text-align: right;
+}
+
+#topMenu a {
+    margin: 5px 0px 0px 0px;
+    padding: 0px;
+    font-weight: bold;
+    color: red;
+    text-decoration: none;
+    display: inline-block;
+}

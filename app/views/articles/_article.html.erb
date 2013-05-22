@@ -1,0 +1,25 @@
+<div style="cursor: pointer;" id="article_<%= article.id %>" class="article_box">
+  <% if article.photo %>
+      <div style="float: left; text-align: left; margin: 5px 10px 8px 8px;">
+        <%= link_to image_tag(article.photo.image.url(:thumb), :alt => article.title, :title => article.title, :class => "help"), article %>
+      </div>
+  <% end %>
+  <h2><%= article.title %></h2>
+  <span style="color: gray; font-size: 9px;">
+    <%= l article.created_at, :format => :long %><br/>
+  </span>
+
+  <div>
+    <% unless article.subtitle.blank? %>
+        <p>
+          <%= article.subtitle %>
+        </p>
+    <% end %>
+  </div>
+
+  <p style="text-align: right; margin: 0px 10px 0px 0px;">
+    <%= link_to "Więcej", article, :style => "color: black; font-size: 11px; font-weight: bold; text-decoration: none;" %>
+  </p>
+</div>
+
+<div style="clear: both; margin-top: 20px;" class="textSeparator"></div>

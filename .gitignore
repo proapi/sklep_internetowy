@@ -1,0 +1,8 @@
+.bundle
+app/assets/images/paperclip/*
+public/assets/*
+public/system/*
+db/*.sqlite3
+log/*
+tmp/
+.sass-cache/

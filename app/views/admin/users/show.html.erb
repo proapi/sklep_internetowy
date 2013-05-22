@@ -1,0 +1,31 @@
+<h2>Szczegóły użytkownika</h2>
+
+<div>
+  <p>
+    <b>Email / login:</b>
+    <%= h @user.email %>
+  </p>
+
+  <p>
+    <b>Imię:</b>
+    <%= h @user.name.blank? ? "Brak" : @user.name %>
+  </p>
+
+  <p>
+    <b>Nazwisko:</b>
+    <%= h @user.last_name.blank? ? "Brak" : @user.last_name %>
+  </p>
+
+  <p>
+    <b>Opis:</b>
+    <%= @user.description.blank? ? "Brak" : @user.description %>
+  </p>
+
+  <br/>
+
+  <div style="text-align: center;">
+    <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, @user], :title => "Szczegóły" %>
+    <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_user_path(@user), :title => "Edycja" %>
+    <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, @user], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+  </div>
+</div>

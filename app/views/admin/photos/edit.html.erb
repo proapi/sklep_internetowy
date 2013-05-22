@@ -1,0 +1,55 @@
+<h2>Edycja obrazka</h2>
+
+<%= form_for([:admin, @photo], :html => {:multipart => true}) do |f| %>
+    <% if @photo.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wystąpiły następujące błędy:</h2>
+          <ul>
+            <% @photo.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div style="text-align: center;">
+      <%= link_to image_tag(@photo.image.url(:thumb), :alt => @photo.title, :title => "Powiększ obraz", :class => "help"), {:controller => @photo.image.url(:original)}, :rel => "lytebox" %>
+    </div>
+
+    <p>
+      <%= f.label :image, "Plik:" %><br/>
+      <%= f.file_field :image %>
+    </p>
+    <p>
+      <%= f.label :title, "Tytuł obrazka:" %><br/>
+      <%= f.text_field :title %>
+    </p>
+    <p>
+      <%= f.label :description, "Opis:" %><br/>
+      <%= f.text_area :description %>
+    </p>
+    <p>
+      <%= f.label :product_id, "Książka:" %><br/>
+      <%= f.collection_select :product_id, Product.order("name"), :id, :name, :include_blank => "Brak" %>
+    </p>
+    <p>
+      <%= f.label :article_id, "Artykuł:" %><br/>
+      <%= f.collection_select :article_id, Article.order("created_at"), :id, :title, :include_blank => "Brak" %>
+    </p>
+    <p>
+      <%= f.label :rotator, "Do rotatora:" %><br/>
+      <%= f.check_box :rotator %>
+    </p>
+    <p>
+      <%= f.label :rotator_link, "Link:" %><br/>
+      <%= f.text_field :rotator_link %>
+    </p>
+    <p>
+      <%= f.label :rotator_order, "Pozycja:" %><br/>
+      <%= f.text_field :rotator_order %>
+    </p>
+
+    <p>
+      <%= f.submit "Zapisz" %>
+    </p>
+<% end %>

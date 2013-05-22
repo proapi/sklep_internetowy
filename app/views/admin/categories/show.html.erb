@@ -1,0 +1,50 @@
+<h2>Szczegóły kategorii</h2>
+
+<div>
+
+  <p>
+    <b>Nazwa:</b>
+    <%= h @category.name %>
+  </p>
+
+  <p>
+    <b>Skrót:</b>
+    <%= h @category.alias.blank? ? "Brak" : @category.alias %>
+  </p>
+
+  <p>
+    <b>Opis:</b>
+    <%= h @category.description.blank? ? "Brak" : @category.description %>
+  </p>
+
+  <p>
+    <b>Pozycja na liście:</b>
+    <%= h @category.list_order.blank? ? "Brak" : @category.list_order %>
+  </p>
+
+  <%- if @category.parent -%>
+      <p>
+        <b>Poziom wyżej:</b>
+        <%= link_to h(@category.parent.name), [:admin, @category.parent] %>
+      </p>
+  <%- end -%>
+
+  <%- unless @category.children.empty? -%>
+      <p>
+        <b>Poziom niżej:</b>
+      </p>
+      <ul>
+        <%- @category.children.each do |child| -%>
+            <li><%= link_to h(child.name), [:admin, child] %></li>
+        <%- end -%>
+      </ul>
+  <% end %>
+
+  <br/>
+
+  <div style="text-align: center;">
+    <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, @category], :title => "Szczegóły" %>
+    <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_category_path(@category), :title => "Edycja" %>
+    <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, @category], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+  </div>
+</div>

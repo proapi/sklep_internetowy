@@ -1,0 +1,42 @@
+<h2>Nowy użytkownik</h2>
+
+<%= form_for([:admin, @user]) do |f| %>
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wystąpiły następujące błędy:</h2>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <p>
+      <%= f.label :email, "Email / login" %><br/>
+      <%= f.text_field :email %>
+    </p>
+    <p>
+      <%= f.label :password, "Hasło" %><br/>
+      <%= f.password_field :password %>
+    </p>
+    <p>
+      <%= f.label :password_confirmation, "Powtórz hasło" %><br/>
+      <%= f.password_field :password_confirmation %>
+    </p>
+    <p>
+      <%= f.label :name, "Imię" %><br/>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :last_name, "Nazwisko" %><br/>
+      <%= f.text_field :last_name %>
+    </p>
+    <p>
+      <%= f.label :description, "Opis" %><br/>
+      <%= f.text_area :description, :class => "mceEditor" %>
+    </p>
+    <p>
+      <%= f.submit 'Utwórz' %>
+    </p>
+<% end %>

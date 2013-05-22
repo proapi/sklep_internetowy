@@ -1,0 +1,32 @@
+<h3>Sprzedaż</h3>
+<ul class="sidemenu">
+  <li><%= link_to "Lista zamówień", admin_orders_path %></li>
+  <li><%= link_to "Lista klientów", admin_clients_path %></li>
+</ul>
+
+<h3>Listy obiektów</h3>
+<ul class="sidemenu">
+  <li><%= link_to "Lista książek", admin_products_path %></li>
+  <li><%= link_to "Lista kategorii", admin_categories_path %></li>
+  <li><%= link_to "Lista wydawnictw", admin_producers_path %></li>
+  <li><%= link_to "Lista użytkowników", admin_users_path %></li>
+  <li><%= link_to "Lista stron", admin_entries_path %></li>
+  <li><%= link_to "Lista artykułów", admin_articles_path %></li>
+  <li><%= link_to "Lista zdjęć", admin_photos_path %></li>
+  <li><%= link_to "Lista wiadomości", admin_messages_path %></li>
+  <li><%= link_to "Lista promocji", admin_products_path(:search => {is_promotion_is_true: true}) %></li>
+  <li><%= link_to "Lista paczkomatów", admin_pack_machines_path %></li>
+  <li><%= link_to "Generuj raport", new_admin_report_path %></li>
+</ul>
+
+<h3>Nowy obiekt</h3>
+<ul class="sidemenu">
+  <li><%= link_to "Nowa wiadomość", new_admin_message_path %></li>
+  <li><%= link_to "Nowa książka", new_admin_product_path %></li>
+  <li><%= link_to "Nowa kategoria", new_admin_category_path %></li>
+  <li><%= link_to "Nowy wydawca", new_admin_producer_path %></li>
+  <li><%= link_to "Nowy użytkownik", new_admin_user_path %></li>
+  <li><%= link_to "Nowa strona", new_admin_entry_path %></li>
+  <li><%= link_to "Nowy artykuł", new_admin_article_path %></li>
+  <li><%= link_to "Nowe zdjęcie", new_admin_photo_path %></li>
+</ul>

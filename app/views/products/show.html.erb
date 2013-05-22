@@ -1,0 +1,180 @@
+<%= content_for :meta do %>
+    <% unless @product.meta_title.blank? %>
+        <title><%= @product.meta_title %></title>
+    <% else %>
+        <title><%= @product.name %></title>
+    <% end %>
+
+    <% unless @product.meta_keywords.blank? %>
+        <meta name="keywords" content="<%= @product.meta_keywords %>"/>
+    <% else %>
+        <meta name="keywords" content="poradnik, ksiezycowy, ekologiczny, zielarskie, poradniki, apteczka, zdrowia, zdrowie, ekologia, zbigniew przybylak, eko arka, biokurier"/>
+    <% end %>
+
+    <% unless @product.meta_description.blank? %>
+        <meta name="description" content="<%= @product.meta_description %>"/>
+    <% else %>
+        <meta name="description" content="Ekologiczny Poradnik Księżycowy, Poradniki Zielarskie, Żywność Ekologiczna, Ogrodnictwo Ekologiczne - Wydawnictwo Gaj, nasze tematy to zdrowie i ekologia"/>
+    <% end %>
+<% end %>
+
+<div id="contentColumnHeader" style="height: auto; min-height: <%= (@product.name.length>45) ? '25' : '15' %>px;">
+  <!-- naglowek ##POCZATEK## -->
+  <div style="float: left; width: 400px;">
+    <%= @product.name %>
+  </div>
+  <!-- AddThis Button BEGIN -->
+  <div class="addthis_toolbox addthis_default_style" style="display: inline; float: right; width: 163px;">
+    <a class="addthis_button_facebook"></a>
+    <a class="addthis_button_google_plusone" style="width: 49px;"></a>
+    <a class="addthis_button_twitter"></a>
+    <a class="addthis_button_email"></a>
+    <a class="addthis_button_print"></a>
+    <a class="addthis_button_compact"></a>
+  </div>
+  <!-- AddThis Button END -->
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash flash %>
+
+  <!-- start of tabs-content -->
+  <div id="tabs-content" style="min-height: 270px; text-align: justify; padding-top: 5px;">
+
+    <% if @product.is_promotion %>
+        <div style="float: right; padding-top: 50px;">
+          <%= image_tag('graph/promocja.jpg', alt: 'Promocja', title: 'Promocja', class: 'help') %>
+        </div>
+    <% end %>
+    <div style="float: right; margin: 0 10px 30px 30px; text-align: center;">
+      <% photo = @product.photo %>
+      <% if photo %>
+          <%= link_to image_tag(photo.image.url(:thumb), :alt => photo.title, :title => "Powiększ obraz", :style => "vertical-align: top;", :class => "help"), photo.image.url(:original), :rel => "lytebox" %>
+      <% else %>
+          <%= image_tag("brak.png", :alt => "Brak głównego obrazka produktu") %>
+      <% end %>
+      <br/><br/>
+      <% if @product.is_promotion %>
+          <span style="color: black; background: #E0E0E0; font-weight: bold; text-decoration: line-through;">
+          <%= number_to_currency(@product.price) %>
+            </span><br/>
+          <span style="color: black; background: #e5ea00; font-weight: bold;">
+            <%= number_to_currency(@product.final_price) %>
+          </span>
+      <% else %>
+          <b><%= number_to_currency(@product.final_price) %></b>
+      <% end %>
+      <br/><br/>
+      <%= link_to image_tag("graph/darmowa_przesylka.jpg", :alt => "Darmowa przesyłka", :size => "110x50", :title => "Darmowa przesyłka", :class => "help"), site_entries_path(:title => "Zasady wysyłki") %>
+      <br/><br/>
+      <%= link_to image_tag("icons/cart_add.png", :alt => "Dodaj produkt do koszyka", :size => "32x32", :title => "Dodaj produkt do koszyka", :class => "help"), {controller: "main", action: "add_to_cart", :product_id => @product} %>
+      <br/>
+      <%= link_to "Do koszyka", {controller: "main", action: "add_to_cart", :product_id => @product} %>
+    </div>
+
+    <div id="product_description" class="mercury-region" data-type="editable">
+      <%= raw @product.description %>
+    </div>
+
+  </div>
+  <!-- end of tabs-content -->
+
+  <br/><p></p><br/>
+
+  <div id="productDetails">
+    <table class="product">
+      <tr>
+        <td class="productPicture">
+          <% photo = @product.photo %>
+          <% if photo %>
+              <%= link_to image_tag(photo.image.url(:thumb), :alt => photo.title, :title => "Powiększ obraz", :class => "help"), photo.image.url(:original), :rel => "lytebox" %>
+          <% else %>
+              <%= image_tag("brak.png", :alt => "Brak głównego obrazka produktu") %>
+          <% end %>
+        </td>
+        <td class="productDetailsProperties">
+          <table>
+            <tr>
+              <td class="propertyName">Tytuł:</td>
+              <td class="propertyValue"><%= @product.name %></td>
+            </tr>
+            <tr>
+              <td class="propertyName">Wydawca:</td>
+              <td class="propertyValue"><%= @product.producer.blank? ? "Brak" : link_to(@product.producer.name, products_path(:search => {:producer_id_eq => @product.producer.id})) %></td>
+            </tr>
+            <tr>
+              <td class="propertyName">Autor:</td>
+              <td class="propertyValue"><%= @product.author.blank? ? "Brak" : @product.author %></td>
+            </tr>
+            <tr>
+              <td class="propertyName">Format:</td>
+              <td class="propertyValue"><%= @product.book_format.blank? ? "Brak" : @product.book_format %></td>
+            </tr>
+            <tr>
+              <td class="propertyName">Ilość stron:</td>
+              <td class="propertyValue"><%= (@product.page_count.nil?) ? "Nie podano" : @product.page_count %></td>
+            </tr>
+            <tr>
+              <td class="propertyName">Kategoria:</td>
+              <td class="propertyValue">
+                <% @product.categories.each do |category| %>
+                    <%= link_to(category.name, products_path(:search => {:categories_id_eq => category.id})) %>&nbsp;
+                <% end %>
+              </td>
+            </tr>
+            <% if @product.is_promotion %>
+                <tr>
+                  <td class="propertyName">Stara cena:</td>
+                  <td class="propertyValue">
+                    <span style="color: black; background: #E0E0E0; font-weight: bold; text-decoration: line-through;"><%= number_to_currency(@product.price) %></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="propertyName">Aktualna cena:</td>
+                  <td class="propertyValue">
+                    <span style="color: black; background: #e5ea00; font-weight: bold;">
+                      <%= number_to_currency(@product.final_price) %>
+                    </span>
+                  </td>
+                </tr>
+            <% else %>
+                <tr>
+                  <td class="propertyName">Cena:</td>
+                  <td class="propertyValue"><%= number_to_currency(@product.final_price) %></td>
+                </tr>
+            <% end %>
+          </table>
+        </td>
+        <td>
+          <table>
+            <tr>
+              <td class="productPicture">
+                <%= link_to image_tag("icons/cart_add.png", :alt => "Dodaj produkt do koszyka", :size => "32x32", :title => "Dodaj produkt do koszyka", :class => "help"), {controller: "main", action: "add_to_cart", :product_id => @product} %>
+              </td>
+            </tr>
+            <tr>
+              <td class="productPicture">
+                <%= link_to image_tag("icons/email.png", :alt => "Wyślij pytanie dotyczące produktu", :size => "40x40", :title => "Wyślij pytanie dotyczące produktu", :class => "help"), site_entries_path(:title => "Kontakt") %>
+              </td>
+            </tr>
+            <tr>
+              <td class="productPicture">
+                <%= image_tag("icons/phone.png", :alt => "Dodatkowe informacje na temat produktu pod numerem telefonu +48 52  581 52 90", :size => "32x32", :title => "Dodatkowe informacje na temat produktu pod numerem telefonu +48 52  581 52 90", :class => "help") %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+  <!-- treść ##KONIEC## -->
+</div>
+<div id="contentColumnFooter"></div>

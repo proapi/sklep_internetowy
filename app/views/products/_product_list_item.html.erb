@@ -1,0 +1,84 @@
+<table class="product" style="cursor: pointer;" id="product_<%= product_list_item.id %>">
+  <tr>
+    <td rowspan="2" class="productPicture">
+      <% if product_list_item.is_promotion %>
+            <div style="float: right; width: 10px;">
+              <span style="color: red; font-weight: bold; font-size: 0.95em;">P<br/>R<br/>O<br/>M<br/>O<br/>C<br/>J<br/>A</span>
+            </div>
+        <% end %>
+
+      <% photo = product_list_item.photo %>
+      <% if photo %>
+          <%= link_to image_tag(photo.image.url(:thumb), :alt => photo.title, :title => "Szczegóły produktu", :class => "help"), product_path(product_list_item) %>
+      <% else %>
+          <%= link_to image_tag("brak.png", :alt => "Brak głównego obrazka produktu", :title => "Szczegóły produktu", :class => "help"), product_path(product_list_item) %>
+      <% end %>
+    </td>
+    <td class="productProperties">
+      <table style="margin-top: 20px;">
+        <tr>
+          <td class="propertyName">Tytuł:</td>
+          <td class="propertyValue"><%= product_list_item.name %></td>
+        </tr>
+        <tr>
+          <td class="propertyName">Wydawca:</td>
+          <td class="propertyValue"><%= product_list_item.producer.blank? ? "Brak" : link_to(product_list_item.producer.name, products_path(:search => {:producer_id_eq => product_list_item.producer.id})) %></td>
+        </tr>
+        <tr>
+          <td class="propertyName">Kategoria:</td>
+          <td class="propertyValue">
+            <% product_list_item.categories.each do |category| %>
+                <%= link_to(category.name, products_path(:search => {:categories_id_eq => category.id})) %>&nbsp;
+            <% end %>
+          </td>
+        </tr>
+        <% if product_list_item.is_promotion %>
+            <tr>
+              <td class="propertyName">Stara cena:</td>
+              <td class="propertyValue">
+                <span style="color: black; background: #E0E0E0; font-weight: bold; text-decoration: line-through;"><%= number_to_currency(product_list_item.price) %></span>
+              </td>
+            </tr>
+            <tr>
+              <td class="propertyName">Aktualna cena:</td>
+              <td class="propertyValue">
+                <span style="color: black; background: #e5ea00; font-weight: bold;">
+                  <%= number_to_currency(product_list_item.final_price) %>
+                </span>
+              </td>
+            </tr>
+        <% else %>
+            <tr>
+              <td class="propertyName">Cena:</td>
+              <td class="propertyValue"><%= number_to_currency(product_list_item.final_price) %></td>
+            </tr>
+        <% end %>
+        <tr>
+          <td class="propertyName"></td>
+          <td class="propertyValue"><%= link_to "Więcej", product_path(product_list_item), :style => "color: black; font-size: 11px; font-weight: bold; text-decoration: none;" %></td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table>
+        <tr>
+          <td class="productPicture">
+            <%= link_to image_tag("icons/cart_add.png", :alt => "Dodaj produkt do koszyka", :size => "32x32", :title => "Dodaj produkt do koszyka", :class => "help"), {controller: "main", action: "add_to_cart", :product_id => product_list_item} %>
+          </td>
+        </tr>
+        <tr>
+          <td class="productPicture">
+            <%= link_to image_tag("icons/email.png", :alt => "Wyślij pytanie dotyczące produktu", :size => "40x40", :title => "Wyślij pytanie dotyczące produktu", :class => "help"), site_entries_path(:title => "Kontakt") %>
+          </td>
+        </tr>
+        <tr>
+          <td class="productPicture">
+            <%= image_tag("icons/phone.png", :alt => "Dodatkowe informacje na temat produktu pod numerem telefonu +48 52  581 52 90", :size => "32x32", :title => "Dodatkowe informacje na temat produktu pod numerem telefonu +48 52  581 52 90", :class => "help") %>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<div class="textSeparator"></div>

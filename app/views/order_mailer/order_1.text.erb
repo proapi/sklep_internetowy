@@ -1,0 +1,75 @@
+Szanowni Państwo,
+
+serdecznie dziękujemy za złożenie zamówienia w sklepie internetowym Wydawnictwa Gaj.
+
+Nr zamówienia: <%= @order.number %>
+Data złożenia zamówienia: <%= l @order.created_at, :format => :long %>
+
+Zamówione książki:
+-----------------------------------------------------
+<% @order.order_items.each_with_index do |item, index| %>
+    <%= "#{index+1}. " %><%= "#{item.quantity} x " %><%= item.product.name %><%= " cena: #{number_to_currency(item.product.final_price.to_f)} wartość: #{number_to_currency(item.quantity*item.product.final_price.to_f)}" %>
+<% end %>
+------------------------------------------------------
+Razem koszt książek: <%= number_to_currency(@order.total) %>
+
+Sposób Zapłaty
+------------------------------------------------------
+<% if @order.payment==0 %>
+    Wybrano płatność za pomocą przelewu.
+    Realizacja zamówienia odbędzie się dopiero po wpłynięciu przelewu na poniższe konto bankowe:
+
+    nr konta: 91 1320 1537 1406 6919 2000 0001
+
+    Eko Media Karol Przybylak
+    ul. Skowronków 36/4, 85-446 Bydgoszcz
+
+    W tytule przelewu prosimy zawrzeć numer zamówienia. Twój nr zamówienia to: <%= @order.number %>
+    Zamówienie będzie realizowane dopiero gdy uregulujesz należność.
+    UWAGA! Informacja dla osób dokonujących zakupów poraz kolejny w sklepie: nastąpiła zmiana numeru konta bankowego i danych do przelewu. Proszę zwrócić uwagę podczas wykonywania przelewu na podanie poprawnych danych, które widnieją powyżej.
+<% elsif @order.payment==2 %>
+    Wybrano płatność za pomocą PayU - płatność elektroniczna.
+
+    Po potwierdzeniu zamówienia zostaną Państwo przekierowani do zewnętrznego serwisu płatności(PayU) w celu
+    uregulowania płatności.
+<% elsif @order.payment==1 %>
+    Wybrano płatność gotówką przy odbiorze.
+
+    Prosimy o uiszczenie opłaty u listonosza przy odbiorze paczki.
+<% end %>
+
+    Koszt wysyłki: <%= number_to_currency(@order.delivery_payment) %>
+
+Razem
+------------------------------------------------------
+Do zapłaty: <%= number_to_currency(@order.total + @order.delivery_payment) %>
+
+<% unless @order.notice.blank? %>
+    Uwagi:
+    <%= @order.notice %>
+<% end %>
+
+Adres wysyłki
+------------------------------------------------------
+<% if @order.delivery_method.eql?('Poczta Polska') %>
+    <%= @order.full_name %>
+    <%= @order.street %> <%= @order.building_no %> <%= @order.place_no.blank? ? "" : "/ #{@order.place_no}" %>
+    <%= @order.code %> <%= @order.city %>
+<% else %>
+    Wybrano dostawę za pomocą Paczkomatu InPost.
+    Oto adres Paczkomatu, na który zostanie zaadresowana wysyłka.
+
+    Paczkomat: <%= @order.pack_machine_id? ? @order.pack_machine.to_s : "Brak informacji" %>
+<% end %>
+
+<% unless @order.client.nil? %>
+Adres Płatnika
+------------------------------------------------------
+<%= @order.client.full_name %>
+<%= @order.client.street %> <%= @order.client.building_no %> <%= @order.client.place_no.blank? ? "" : "/ #{@order.client.place_no}" %>
+<%= @order.client.code %> <%= @order.client.city %>
+<% end %>
+
+W razie pytań prosimy o kontakt: sklep@wydawnictwogaj.pl
+Serdecznie dziękujemy i zapraszamy na nasze strony:
+www.wydawnictwogaj.pl www.biokurier.pl

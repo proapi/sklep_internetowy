@@ -1,0 +1,147 @@
+@CHARSET "UTF-8";
+
+#leftColumn {
+    height:10px;
+    width: 203px;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+}
+#searchBoxContainer {
+    border-style: solid;
+    border-color: #c8c8c8;
+    border-width: 1px 1px 0px 1px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    width: 191px;
+    margin: 2px 0px 0px 0px;
+    height: 38px;
+    padding: 0px 10px 0px 0px;
+    font-size:11px;
+    font-weight: normal;
+    font-style: normal;
+    background-color: white;
+    color: black;
+}
+
+.searchBox {
+    margin: 0px;
+    padding: 0px;
+}
+
+.searchBox form {
+    margin: 0px;
+    padding: 0px;
+}
+
+.searchBox .inputbox {
+    border-style: solid;
+    border-color: #d1d1d1;
+    border-width: 1px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    float:left;
+    margin: 7px 0px 0px 7px;
+    font-size: 12px;
+    height:17px;
+    width: 150px;
+    padding: 0px 0px 0px 2px;
+}
+
+.searchBox .submitButton {
+    height:28px;
+    width:25px;
+    border-width: 0px;
+    margin: 2px 0px 0px 5px;
+    padding:0px;
+    float:left;
+    background-image: url(image-path('graph/searchButton.png'));
+    background-position: top left;
+    background-repeat: no-repeat;
+}
+
+#advancedSearch {
+    margin: 0px 0px 0px 5px;
+    padding: 0px 0px 0px 2px;
+}
+
+#advancedSearch a {
+    padding-left: 17px;
+    font-weight: bold;
+    font-size: 10px;
+    color: #029834;
+    text-decoration: none;
+}
+
+#leftMenu {
+    border-style: solid;
+    border-color: #c8c8c8;
+    border-width: 1px 1px 0px 1px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    background-color: white;
+    width: 201px;
+    margin-top:2px;
+    min-height: 200px;
+}
+
+#treeMenu a {	/* Main menu items */
+              color:#000;
+              text-decoration:none;
+              font-size:12px;
+              font-weight:bold;
+}
+
+#treeMenu ul li a {	/* Sub menu */
+                    color: #000;
+                    font-size:11px;
+                    font-weight:normal;
+}
+
+#treeMenu ul li ul li a {	/* Sub Sub menu */
+                          color: #000;
+                          font-style:italic;
+                          font-size:9px;
+                          font-weight:normal;
+}
+
+#treeMenu .activeMenuLink{	/* Styling of active menu item */
+                           text-decoration: underline;
+}
+
+/*
+No bullets
+*/	
+#treeMenu li{
+    list-style-type:none;
+    /*list-style-image:url("graph/sideMenuArrow.png");
+	list-style-type:square;*/
+    background-image: url(image-path("graph/sideMenuArrow.png"));
+    background-repeat: no-repeat;
+    background-position: 0px 7px;
+    padding-left:30px;
+    color: black;
+}
+
+/*
+No margin and padding
+*/
+#treeMenu {
+    margin:0px;
+    padding-left:5px !important;
+}
+
+/* Margin of sub menu items */
+#treeMenu ul{
+    display:none;
+    margin: 0px;
+    padding: 0px;
+}
+
+#treeMenu .glowne {
+    list-style-type:none !important;
+    list-style-image: none !important;
+    background-image: none !important;
+    padding-top: 5px;
+    padding-left: 0px !important;
+}

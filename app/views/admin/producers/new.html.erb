@@ -1,0 +1,50 @@
+<h2>Nowy wydawca</h2>
+
+<%= form_for([:admin, @producer]) do |f| %>
+    <% if @producer.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wystąpiły następujące błędy:</h2>
+          <ul>
+            <% @producer.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <p>
+      <%= f.label :name, "Nazwa" %><br/>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :address, "Adres" %><br/>
+      <%= f.text_field :address %>
+    </p>
+    <p>
+      <%= f.label :city, "Kod pocztowy, miasto" %><br/>
+      <%= f.text_field :city %>
+    </p>
+    <p>
+      <%= f.label :email, "Email" %><br/>
+      <%= f.text_field :email %>
+    </p>
+    <p>
+      <%= f.label :telephone, "Telefon" %><br/>
+      <%= f.text_field :telephone %>
+    </p>
+    <p>
+      <%= f.label :www, "Strona www" %><br/>
+      <%= f.text_field :www %>
+    </p>
+    <p>
+      <%= f.label :description, "Opis" %><br/>
+      <%= f.text_area :description, :class => "mceEditor" %>
+    </p>
+    <p>
+      <%= f.label :priority, "Priorytet(niższy=ważniejszy)" %><br/>
+      <%= f.text_field :priority %>
+    </p>
+    <p>
+      <%= f.submit 'Utwórz' %>
+    </p>
+<% end %>

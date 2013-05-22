@@ -1,0 +1,9 @@
+<%= render :partial => "shared/admin_top" %>
+
+<h3>Wyszukaj wiadomość</h3>
+
+<%= form_for(:message, url: admin_messages_path, :method => :get, :html => {:class => "searchform"}) do |f| %>
+    <%= f.autocomplete_field :name, autocomplete_message_name_admin_messages_path %>
+<% end %>
+
+<%= render :partial => "shared/admin_bottom" %>

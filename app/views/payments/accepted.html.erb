@@ -1,0 +1,37 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  POTWIERDZENIE PŁATNOŚCI
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash flash %>
+
+  <br/>
+
+  <div style="text-align: center;">
+  <p>Dziękujemy za dokonanie płatności za pomocą serwisu płatności on-line PayU(Platnosci.pl)!</p>
+  </div>
+
+  <br><br/>
+
+  <div style="text-align: center;">
+    <%= image_tag 'graph/payu_logo.jpg' %>
+  </div>
+
+  <br/>
+
+  <div style="text-align: center; margin-top: 10px;">
+    <br/><%= button_to "Powrót na stronę główną", root_url, method: :get %>
+  </div>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

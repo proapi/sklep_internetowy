@@ -1,0 +1,109 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  <% if params[:search] && !params[:search][:producer_id_eq].blank? %>
+      <% producer = Producer.find(params[:search][:producer_id_eq]) %>
+      <%= raw ("LISTA KSIĄŻEK WYDAWCY: " + link_to(producer.name, products_path(:search => {:producer_id_eq => producer.id}))) %>
+  <% elsif params[:search] && !params[:search][:categories_id_eq].blank? %>
+      <% category = Category.find(params[:search][:categories_id_eq]) %>
+      <%= raw ("LISTA KSIĄŻEK KATEGORII: " + link_to(category.name, products_path(:search => {:categories_id_eq => category.id}))) %>
+  <% elsif params[:search] && !params[:search][:created_at_grater_than_or_equal].blank? %>
+      <%= "LISTA NOWOŚCI" %>
+  <% elsif params[:search] && !params[:search][:is_promotion_is_true].blank? %>
+      <%= "LISTA KSIĄŻEK W PROMOCJI" %>
+  <% elsif params[:search] && params[:search][:meta_sort] && params[:search][:meta_sort].eql?('hits_quantity.desc') %>
+      <%= "LISTA BESTSELLERÓW" %>
+  <% else %>
+      <%= "LISTA KSIĄŻEK" %>
+  <% end %>
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash flash %>
+
+  <% if @products.blank? %>
+      <div style="text-align: center;">
+        Brak książek spełniających podane kryteria.<br/>Proszę zmienić kryteria wyszukiwania książek, takie jak
+        kategoria bądź wydawca w formularzu wyszukiwania znajdującym się poniżej<br/><br/>
+      </div>
+  <% else %>
+      <div id="pagination_div_1" style="font-size: 10px; text-align: center;">
+        <%= page_entries_info @products, html: false %>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <%= form_for @search, :url => products_path, :html => {method: :get, class: 'sort-form', style: 'display: inline;'} do |f| %>
+            <%= f.label "Sortuj wg: " %>
+            <%= f.select :meta_sort, options_for_select([["Domyślnie", ""], ["Tytuł a-z", "name.asc"], ["Tytuł z-a", "name.desc"], ["Cena rosnąco", "final_price.asc"], ["Cena malejąco", "final_price.desc"], ["Wydawca a-z", "producer_name.asc"], ["Wydawca z-a", "producer_name.desc"]], [@search.search_attributes["meta_sort"]]), {}, class: 'sort-select' %>
+            <%= select_tag :per_page, options_for_select([["5", 5], ["10", 10], ["20", 20], ["50", 50]], [params[:per_page] || 20]), class: 'sort-select' %>
+            <% if params[:search] && !params[:search][:producer_id_eq].blank? %>
+                <%= f.hidden_field :producer_id_eq, :value => params[:search][:producer_id_eq] %>
+            <% elsif params[:search] && !params[:search][:categories_id_eq].blank? %>
+                <%= f.hidden_field :categories_id_eq, :value => params[:search][:categories_id_eq] %>
+            <% elsif params[:search] && !params[:search][:created_at_grater_than_or_equal].blank? %>
+                <%= f.hidden_field :created_at_grater_than_or_equal, :value => params[:search][:created_at_grater_than_or_equal] %>
+            <% elsif params[:search] && !params[:search][:is_promotion_is_true].blank? %>
+                <%= f.hidden_field :is_promotion_is_true, :value => params[:search][:is_promotion_is_true] %>
+            <% else %>
+            <% end %>
+
+        <% end %>
+        <% if @products.total_pages > 1 %>
+            &nbsp;&nbsp;|&nbsp;&nbsp;Strona:&nbsp;
+        <% end %>
+        <%= will_paginate(@products, {:inner_window => "1", :outer_window => "1", :style => 'display: inline;'}) %>
+      </div>
+
+      <div class="textSeparator"></div>
+
+      <div id="product_list_items">
+        <%= render :partial => "product_list_item", :collection => @products %>
+      </div>
+
+      <div id="pagination_div_2" style="font-size: 11px; text-align: center;">
+        <% if @products.total_pages > 1 %>
+            Strona:&nbsp;
+        <% end %>
+        <%= will_paginate(@products, {:inner_window => "1", :outer_window => "1", :style => 'display: inline;'}) %>
+      </div>
+
+      <br/><br/>
+  <% end %>
+
+  <div id="product_list_filter" class="filter_form">
+    <a name="searchform"></a>
+    <%= form_for @search, :url => products_path, :html => {method: :get} do |f| %>
+        <table style="width: 100%">
+          <tr>
+            <td style="text-align: left;"><%= f.label "Nazwa: " %></td>
+            <td colspan="3" style="text-align: right;"><%= f.text_field :name_like, style: "width: 100%;" %></td>
+          </tr>
+          <tr>
+            <td style="text-align: left;"><%= f.label "Kategoria: " %></td>
+            <td style="text-align: right"><%= f.collection_select :categories_id_eq, Category.where("parent_id is null"), :id, :name, :include_blank => "Wszystkie" %></td>
+            <td style="text-align: left"><%= f.label "Cena od: " %></td>
+            <td style="text-align: right"><%= f.select :final_price_greater_than_or_equal_to, options_for_select([["10,00", 10], ["20,00", 20], ["50,00", 50], ["100,00", 100]]), :include_blank => "Wszystkie" %></td>
+          </tr>
+          <tr>
+            <td style="text-align: left"><%= f.label "Wydawca: " %></td>
+            <td style="text-align: right"><%= f.collection_select :producer_id_eq, Producer.all, :id, :name, :include_blank => "Wszyscy" %></td>
+            <td style="text-align: left"><%= f.label "Cena do: " %></td>
+            <td style="text-align: right"><%= f.select :final_price_less_than_or_equal_to, options_for_select([["10,00", 10], ["20,00", 20], ["50,00", 50], ["100,00", 100]]), :include_blank => "Wszystkie" %></td>
+          </tr>
+          <tr>
+            <td style="text-align: left"><%= f.label "Sort: " %></td>
+            <td style="text-align: right"><%= f.sort_link :name, " nazwa " %><%= f.sort_link :final_price, " cena " %><%= f.sort_link :producer, "wydawca " %><%= f.sort_link :category, " kategoria " %></td>
+          </tr>
+          <tr>
+            <td colspan="6" style="text-align: right;"><%= f.submit "Odśwież", name: nil %></td>
+          </tr>
+        </table>
+    <% end %>
+  </div>
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

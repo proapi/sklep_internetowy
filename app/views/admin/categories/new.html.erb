@@ -1,0 +1,38 @@
+<h2>Nowa kategoria</h2>
+
+<%= form_for([:admin, @category]) do |f| %>
+    <% if @category.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wystąpiły następujące błędy:</h2>
+          <ul>
+            <% @category.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <p>
+      <%= f.label :name, "Nazwa:" %><br/>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :alias, "Skrót:" %><br/>
+      <%= f.text_field :alias %>
+    </p>
+    <p>
+      <%= f.label :list_order, "Pozycja na liście:" %><br/>
+      <%= f.text_field :list_order, :value => 0 %>
+    </p>
+    <p>
+      <%= f.label :parent_id, "Kategoria wyżej:" %><br/>
+      <%= f.collection_select :parent_id, Category.all(:order => "name"), :id, :name, :include_blank => "Brak" %>
+    </p>
+    <p>
+      <%= f.label :description, "Opis:" %><br/>
+      <%= f.text_area :description, :class => "mceEditor" %>
+    </p>
+    <p>
+      <%= f.submit 'Zapisz' %>
+    </p>
+<% end %>

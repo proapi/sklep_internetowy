@@ -1,0 +1,9 @@
+<%= render :partial => "shared/admin_top" %>
+
+<h3>Wyszukaj paczkomat</h3>
+
+<%= form_for(:pack_machine, url: admin_pack_machines_path, :method => :get, :html => {:class => "searchform"}) do |f| %>
+    <%= f.autocomplete_field :name, autocomplete_article_title_admin_articles_path %>
+<% end %>
+
+<%= render :partial => "shared/admin_bottom" %>

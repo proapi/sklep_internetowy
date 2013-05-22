@@ -1,0 +1,83 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  Logowanie klienta do sklepu
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <% unless flash[:notice].blank? %>
+      <%= raw "<br/><div class=\"flashnotice\">#{flash[:notice]}</div><br/><br/>" %>
+  <% end %>
+
+
+  <%= form_for @client_session, :url => {:controller => "client_sessions", :action => "create"} do |f| %>
+      <% if @client_session.errors.any? %>
+          <div id="error_explanation">
+            <h2>Wystąpiły następujące błędy:</h2>
+            <ul>
+              <% @client_session.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <div style="width: 49%; float: left; height: 300px; text-align: center; border: 2px solid #029834;">
+        <h3 style="color: #029834;">Jesteś naszym Klientem?</h3>
+        <br/>
+
+        <p>Zaloguj się!</p>
+
+        <p>
+          <%= f.label :email, "Email / login" %><br/>
+          <%= f.text_field :email, :class => "login_field" %>
+        </p>
+
+        <p>
+          <%= f.label :password, "Hasło" %><br/>
+          <%= f.password_field :password, :class => "login_field" %>
+        </p>
+
+        <p><%= f.submit "Zaloguj" %></p>
+        <br/>
+
+        <p>
+          Zapomniałeś hasła? <%= link_to 'Odzyskaj hasło', new_password_reset_path %>
+        </p>
+      </div>
+  <% end %>
+
+  <div style="width: 49%; height: 300px; float: right; text-align: center; border: 2px solid #a46c0e;">
+    <h3 style="color: #a46c0e;">Jesteś tu po raz pierwszy?</h3>
+    <br/>
+
+    <p>
+      <%= button_to "Zarejestruj się", new_client_path, method: :get %><br/>
+      lub<br/> <br/>
+      <%= button_to "Kupuj bez logowania", new_order_path(not_login: true) %>
+    </p>
+
+    <p style="margin: 0 6px 0 6px;"><b>Rejestrując się</b> zyskasz łatwiejszy dostęp do rabatów i nowości oraz podgląd
+      złożonych zamówień.<br/><br/>
+      Kupując <b>bez rejestrowania się</b> możesz szybko dokonać jednorazowej transakcji, ale nie masz dostępu do
+      historii zamówień.<br/>
+
+    </p>
+  </div>
+  <div style="clear: both;"></div>
+  <p>
+    Dane Klienta zostaną wprowadzone do bazy danych sklepu www.wydawnictwogaj.pl. Administratorem tych danych jest firma
+    Eko Media Karol Przybylak z siedzibą przy ul. Siedleckiej 62 w Bydgoszczy.<br/> <br/><b>Baza danych została
+    stworzona wyłącznie w celu realizacji zamówień i nie jest udostępniana innym podmiotom. Każdy Klient ma prawo do
+    weryfikacji swoich danych.</b>
+  </p>
+
+  <!-- treść ##KONIEC## -->
+</div>
+<div id="contentColumnFooter"></div>

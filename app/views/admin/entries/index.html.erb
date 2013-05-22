@@ -1,0 +1,40 @@
+<h1>Lista stron</h1>
+
+<% unless @entries.empty? %>
+    <div style="text-align: center;">
+      <%= will_paginate(@entries) %>
+    </div>
+
+    <table style="width: 100%;">
+      <tr>
+        <th>Tytuł</th>
+        <th></th>
+      </tr>
+
+      <% @entries.each do |entry| %>
+          <tr>
+            <td><%= h entry.title %></td>
+            <td>
+              <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, entry], :title => "Szczegóły" %>
+              <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_entry_path(entry), :title => "Edycja" %>
+              <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, entry], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <div style="text-align: center;">
+      <%= will_paginate(@entries) %>
+    </div>
+
+<% else %>
+    <p>Brak stron!</p>
+<% end %>
+
+<%= form_for @search, :url => admin_entries_path, :html => {:method => :get} do |f| %>
+    <%= f.label "Tytuł" %><%= f.text_field :title_like %>
+    <br/>
+    <%= f.label "Sort: " %><%= f.sort_link :title, " tytuł " %>
+    <br/>
+    <%= f.submit "Filtr", :name => nil %>
+<% end %>

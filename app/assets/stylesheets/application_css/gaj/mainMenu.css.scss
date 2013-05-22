@@ -1,0 +1,53 @@
+@CHARSET "UTF-8";
+
+#mainMenu {
+
+	height: 40px;
+	float: right;
+}
+
+#mainMenuLeftSide {
+	float:left;
+	height: 40px;
+	width: 8px;
+	background-image: url(image-path('graph/mainmenu/leftending.png'));
+}
+
+#mainMenuRightSide {
+	float:right;
+	height: 40px;
+	width: 16px;
+	background-image: url(image-path('graph/mainmenu/rightending.png'));
+}
+
+.mainMenuItem {
+	float:right;
+	height: 40px;
+	background-image: url(image-path('graph/mainmenu/background.png'));
+}
+
+.mainMenuItemText {
+	color: white;
+	font-size:11px;
+	font-weight: bold;
+	font-style: normal;
+	padding: 12px 10px 0px 10px;
+	float:left;
+}
+
+.mainMenuItemText a {
+	color: white;
+	font-size:11px;
+	font-weight: bold;
+	font-style: normal;
+	padding: 0px;
+	float:left;
+	text-decoration: none;
+}
+
+.mainMenuItemSeparator {
+	height: 40px;
+	width: 11px;
+	background-image: url(image-path('graph/mainmenu/separator.png'));
+	float:left;
+}

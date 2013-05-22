@@ -1,0 +1,9 @@
+<%= render :partial => "shared/admin_top" %>
+
+<h3>Wyszukaj obrazek</h3>
+
+<%= form_for(:photo, url: admin_photos_path, :method => :get, :html => {:class => "searchform"}) do |f| %>
+    <%= f.autocomplete_field :title, autocomplete_photo_title_admin_photos_path %>
+<% end %>
+
+<%= render :partial => "shared/admin_bottom" %>

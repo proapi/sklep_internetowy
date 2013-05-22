@@ -1,0 +1,52 @@
+<h2>Szczegóły strony</h2>
+
+<div>
+
+  <p>
+    <b>Tytuł:</b>
+    <%= h @entry.title %>
+  </p>
+
+
+  <p>
+    <b>Treść:</b>
+  </p>
+
+  <p>
+    <%= h @entry.body %>
+  </p>
+
+  <h2>Opcjonalne ustawienia metatag:</h2>
+
+  <p>Jeżeli pozostawione puste, zostaną zastąpione domyślnymi tagami ustalonymi dla całej strony.</p>
+
+  <p>
+    <b>Tytuł strony(metatag title):</b><br/>
+    <%= h @entry.meta_title.blank? ? "Brak" : @entry.meta_title %>
+  </p>
+
+  <p>
+    <b>Słowa kluczowe(metatag keywords):</b><br/>
+    <%= h @entry.meta_keywords.blank? ? "Brak" : @entry.meta_keywords %>
+  </p>
+
+  <p>
+    <b>Opis strony(metatag description):</b><br/>
+    <%= h @entry.meta_description.blank? ? "Brak" : @entry.meta_description %>
+  </p>
+
+  <% if @entry.category %>
+      <p>
+        <b>Kategoria powiązana:</b><br/>
+        <%= h @entry.category.name %>
+      </p>
+  <% end %>
+
+  <br/>
+
+  <div style="text-align: center;">
+    <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, @entry], :title => "Szczegóły" %>
+    <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_entry_path(@entry), :title => "Edycja" %>
+    <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, @entry], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+  </div>
+</div>

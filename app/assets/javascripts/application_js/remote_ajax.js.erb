@@ -1,0 +1,42 @@
+$(document).ready(function() {
+    //TODO uporządkować tutaj kod, żeby nie powtarzać trzy razy tego samego
+    $(".hover_box").hover(function() {
+            $(this).css("background-color", "#E0E0E0");
+        }, function() {
+            $(this).css("background-color", "#FFFFFF");
+        });
+
+    $(".product_box").hover(function() {
+        $(this).css("background-color", "#E0E0E0");
+    }, function() {
+        $(this).css("background-color", "#FFFFFF");
+    });
+
+    $(".product_box").click(function() {
+        var id = $(this).attr('id').replace(/[^0-9]/g, '');
+        location.href = "/products/" + id;
+    });
+
+    $(".article_box").hover(function() {
+        $(this).css("background-color", "#E0E0E0");
+    }, function() {
+        $(this).css("background-color", "#FFFFFF");
+    });
+
+    $(".article_box").click(function() {
+        var id = $(this).attr('id').replace(/[^0-9]/g, '');
+        location.href = "/articles/" + id;
+    });
+
+    $(".product").hover(function() {
+        $(this).css("background-color", "#E0E0E0");
+    }, function() {
+        $(this).css("background-color", "#FFFFFF");
+    });
+
+    $(".product").click(function() {
+        var id = $(this).attr('id').replace(/[^0-9]/g, '');
+        location.href = "/products/" + id;
+    });
+
+});

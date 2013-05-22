@@ -1,0 +1,165 @@
+<div id="contentColumnHeader" xmlns="http://www.w3.org/1999/html">
+  <!-- naglowek ##POCZATEK## -->
+  POTWIERDZENIE ZAMÓWIENIA
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash flash %>
+
+  <div style="text-align: center">
+    <%= image_tag("graph/pasek3.jpg") %>
+  </div>
+
+  <h2>Etap zamówienia: podsumowanie(krok 3 z 4)</h2>
+
+  <p>Aby poprawnie złożyć zamówienie, należy przejść wszystkie kroki. Potwierdzeniem poprawnego złożenia zamówienia w
+    sklepie jest otrzymanie wiadomości e-mail na wskazany przy rejestracji adres.</p>
+
+  <%= form_for(@order) do |f| %>
+      <% if @order.errors.any? %>
+          <div id="error_explanation">
+            <h2>Wystąpiły następujące błędy:</h2>
+            <ul>
+              <% @order.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <h3>Informacje o zamówieniu:</h3>
+
+      <br/>
+      <hr size="1" style="border-color: #029834"/>
+      <br/>
+
+      <h3>Zamówione książki:</h3>
+      <% @order.order_items.each_with_index do |item, index| %>
+          <%= "#{index+1}. " %><%= "#{ truncate(item.product.name, :length => 47)}" %>
+          <%= "szt. #{item.quantity} cena: #{number_to_currency(item.quantity*item.product.final_price.to_f)}" %>
+          <br/>
+      <% end %>
+      <p>Całkowity koszt książek: <%= number_to_currency(@order.total) %></p>
+
+      <br/>
+      <hr size="1" style="border-color: #029834"/>
+      <br/>
+
+      <h3>Płatność</h3>
+
+      <p>
+        <% if @order.payment==0 %>
+            <b>Wybrano płatność za pomocą przelewu.</b><br/><br/>
+            Informacje dotyczące banku, numeru konta otrzymają Państwo we wiadomości email po złożeniu zamówienia.<br/>
+        <% elsif @order.payment==2 %>
+            <b>Wybrano płatność za pomocą płatności on-line PayU(Platnosci.pl)</b><br/><br/>
+            Po potwierdzeniu zamówienia zostaną Państwo przekierowani do zewnętrznego serwisu płatności on-line
+            PayU(Platnosci.pl), w celu uregulowania zobowiązania.<br/>
+        <% elsif @order.payment==1 %>
+            <b>Wybrano płatność przy odbiorze.</b><br/><br/>
+            Płatność odbędzie się u listonosza w momencie dostarczenia przesyłki.<br/>
+        <% end %>
+      </p>
+
+      <br/>
+      <hr size="1" style="border-color: #029834"/>
+      <br/>
+
+      <h3>Sposób wysyłki</h3>
+
+      <% if @order.delivery_method.eql?('Poczta Polska') %>
+          <p><b>Wybrano dostawę za pomocą przesyłki Pocztą Polską.</b><br/><br/>Oto adres, na który zostanie
+            zaadresowana
+            wysyłka.</p>
+
+          <h3>Adres wysyłki:</h3>
+
+          <p>
+            Imię i nazwisko / Nazwa: <%= h @order.full_name %>
+          </p>
+
+          <p>
+            Ulica: <%= h @order.street %>
+          </p>
+
+          <p>
+            Numer budynku / numer
+            lokalu: <%= "#{@order.building_no}" %><%= @order.place_no.blank? ? "" : "/ #{@order.place_no}" %>
+          </p>
+
+          <p>
+            Kod pocztowy, miejscowość: <%= h @order.code %> <%= h @order.city %>
+          </p>
+
+          <p>
+            Adres email: <%= h @order.email %>
+          </p>
+
+          <% unless session[:not_login] %>
+              <h3>Adres płatnika:</h3>
+
+              <p>
+                Imię i nazwisko / Nazwa: <%= h @order.client.full_name %>
+              </p>
+
+              <p>
+                Ulica: <%= h @order.client.street %>
+              </p>
+
+              <p>
+                Numer budynku / numer
+                lokalu: <%= "#{@order.client.building_no}" %><%= @order.client.place_no.blank? ? "" : "/ #{@order.client.place_no}" %>
+              </p>
+
+              <p>
+                Kod pocztowy, miejscowość: <%= h @order.client.code %> <%= h @order.client.city %>
+              </p>
+          <% end %>
+      <% else %>
+          <p><b>Wybrano dostawę za pomocą Paczkomatu InPost.</b><br/><br/>Oto adres Paczkomatu, na który zostanie
+            zaadresowana wysyłka.
+
+            <br/>Paczkomat: <%= @order.pack_machine_id? ? PackMachine.find(@order.pack_machine_id).to_s : "Brak informacji" %>
+          </p>
+      <% end %>
+
+      <p>
+        Całkowity koszt dostawy: <%= number_to_currency @order.delivery_payment %>
+      </p>
+
+
+      <% unless @order.notice.blank? %>
+          <p>
+            Uwagi do zamówienia: <%= h @order.notice %>
+          </p>
+      <% end %>
+
+      <br/>
+      <hr size="1" style="border-color: #029834"/>
+      <br/>
+
+      <h3 style="color: #FF0000; padding-bottom: 20px;">Całkowity koszt
+        zamówienia: <%= number_to_currency(@order.total + @order.delivery_payment) %></h3>
+
+      <p>
+        <%= f.submit 'Potwierdź zamówienie', :style => "font-size: 15px; float: right;" %>
+        <%= f.submit "Wstecz", :style => "font-size: 15px; float: left;", :name => "back_button" unless @order.first_step? %>
+      </p>
+      <br/>
+  <% end %>
+
+  <div style="text-align: center; margin-top: 10px;">
+    <br/><%= button_to "Powrót do zakupów w sklepie", root_url, method: :get %>
+  </div>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

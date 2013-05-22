@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+
+.columnHeaderBox {
+    border-style: solid;
+    border-color: #c8c8c8;
+    border-width: 1px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    width: 201px;
+    background-color: white;
+    padding: 6px 0px;
+    margin-top:2px;
+    background-image: url(image-path('graph/dot.png'));
+    background-repeat: no-repeat;
+    background-position: 8px 5px;
+}
+
+.columnHeaderBoxText {
+    font-size:12px;
+    font-weight: bold;
+    font-style: normal;
+    color: #029834;
+    margin-left: 33px;
+}
+
+.columnRoundedHeaderBox {
+    height: 35px;
+    width: 203px;
+    background:url(image-path('graph/searchBoxBackground.png'));
+}
+
+.columnRoundedFooterBox {
+    height: 17px;
+    width: 203px;
+    background:url(image-path('graph/roundedFooter.png'));
+    margin: 0px 0px 4px 0px;
+}
+
+.columnRoundedHeaderBoxDot {
+    background-image: url(image-path('graph/dot.png'));
+    background-repeat: no-repeat;
+    background-position: 9px 9px;
+    height: 35px;
+}
+
+.columnRoundedHeaderBoxText {
+    font-size:12px;
+    font-weight: bold;
+    font-style: normal;
+    color: #029834;
+    margin-left: 30px;
+    padding-top: 10px;
+}
+
+.columnContentBox {
+    border-style: solid;
+    border-color: #c8c8c8;
+    border-width: 1px 1px 0px 1px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    width: 181px;
+    margin: 2px 0px 0px 0px;
+    min-height: 50px;
+    padding: 10px 10px 0px 10px;
+    font-size: 11px;
+    font-weight: normal;
+    font-style: normal;
+    background-color: white;
+    color: black;
+}
+.columnContentBox div {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.columnContentBox a {
+    color: black;
+    font-size: 11px;
+    font-weight: bold;
+    text-decoration: none;
+}

@@ -1,0 +1,32 @@
+<div id="tabs">
+  <ul id="tabs-list">
+    <li><%= link_to "Dane", edit_admin_product_path(@product, :destination => "data") %></li>
+    <li><%= link_to "Promocja", edit_admin_product_path(@product, :destination => "promotion") %></li>
+    <li id="selected"><a href="#">Powiązane</a></li>
+  </ul>
+</div>
+
+<div>
+  <p><b>Aktualne relacje:</b></p>
+  <ul>
+    <% for relation in @product.relations %>
+        <div id="refresh<%= relation.id %>">
+          <li><%= relation.name %><%= link_to_remote image_tag("icons/trash.png", :style => "width: 24px; height: 24px; vertical-align: middle; border: 0;"), :url => {:action => "remove_relation", :product_id => @product.id, :relation_id => relation.id} %></li>
+        </div>
+    <% end %>
+    <div id="new_relation"></div>
+  </ul>
+
+
+  <p><b>Dodaj relację:</b></p>
+  <%# form_tag :url => {:action => "add_relation"} do -%>
+      <%# hidden_field :product, :id %>
+      <p>
+        <%# select(:relation, :id, Relation.where("id != ?", @product.id).collect { |p| [p.name, p.id] }) %>
+      </p>
+
+      <p>
+        <%# submit_tag "Dodaj" %>
+      </p>
+  <%# end %>
+</div>

@@ -1,0 +1,119 @@
+<h2 xmlns="http://www.w3.org/1999/html">Informacje o zamówieniu:</h2>
+
+<div>
+
+  <p>
+    <b>Numer zamówienia:</b> <%= @order.number %>
+  </p>
+
+
+  <p>
+    <b>Data złożenia:</b> <%= l @order.created_at, format: :long %>
+  </p>
+
+  <p>
+    <b>Status zamówienia:</b>
+  <span id="<%= "status_#{@order.id}" %>">
+    <%= @order.status_text %>
+  </span>
+  </p>
+
+  <p>
+    <b>Forma wysyłki: </b><%= @order.delivery_method %>
+  </p>
+
+  <% unless @order.delivery_method.eql?('Poczta Polska') %>
+      <p>
+        <b>Wybrany paczkomat: </b>
+        <%= "#{@order.pack_machine_id? ? @order.pack_machine.to_s : 'Brak informacji'}" %>
+      </p>
+  <% end %>
+
+  <p>
+    <b>Forma płatności: </b><%= Order.payments[@order.payment] %>
+  </p>
+
+  <p>
+    <b>Koszt wysyłki: </b><%= number_to_currency(@order.delivery_payment) %>
+  </p>
+
+  <h2>Zamówione książki:</h2>
+  <% @order.order_items.each_with_index do |item, index| %>
+      <p>
+        <%= "#{index+1}. " %>
+        <% if item.product %>
+            <%= link_to "#{ truncate(item.product.name, :length => 47)}", admin_product_path(item.product) %>
+            <%= "szt. #{item.quantity} cena: #{number_to_currency(item.quantity*item.product.final_price.to_f)}" %>
+        <% else %>
+            Produkt usunięto z oferty sklepu!
+        <% end %>
+      </p>
+  <% end %>
+  <p><b>Całkowity koszt zamówienia: <%= number_to_currency(@order.total + @order.delivery_payment) %></b></p>
+
+  <h2>Adres wysyłki:</h2>
+
+  <p>
+    <b>Imię i nazwisko / Nazwa:</b> <%= h @order.full_name %>
+  </p>
+
+  <p>
+    <b>Ulica:</b> <%= h @order.street %>
+  </p>
+
+  <p>
+    <b>Numer budynku / numer
+      lokalu:</b> <%= "#{@order.building_no}" %><%= @order.place_no.blank? ? "" : "/ #{@order.place_no}" %>
+  </p>
+
+  <p>
+    <b>Kod pocztowy, miejscowość:</b> <%= h @order.code %> <%= h @order.city %>
+  </p>
+
+  <p>
+    <b>Adres email:</b> <%= h @order.email %>
+  </p>
+
+  <% unless @order.notice.blank? %>
+      <p>
+        <b>Uwagi do zamówienia:</b> <%= h @order.notice %>
+      </p>
+  <% end %>
+
+  <% unless @order.client.nil? %>
+      <h2>Adres płatnika:</h2>
+
+      <p>
+        <b>Imię i nazwisko / Nazwa:</b> <%= h @order.client.full_name %>
+      </p>
+
+      <p>
+        <b>Ulica:</b> <%= h @order.client.street %>
+      </p>
+
+      <p>
+        <b>Numer budynku / numer
+          lokalu:</b> <%= "#{@order.client.building_no}" %><%= @order.client.place_no.blank? ? "" : "/ #{@order.client.place_no}" %>
+      </p>
+
+      <p>
+        <b>Kod pocztowy, miejscowość:</b> <%= h @order.client.code %> <%= h @order.client.city %>
+      </p>
+  <% end %>
+
+  <br/>
+
+  <div style="text-align: center;">
+    <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, @order], :title => "Szczegóły" %>
+    <% if @order.client %>
+        <%= link_to image_tag("icons/letter.png", :size => "16x16"), new_admin_message_path(client_id: @order.client.id), :title => "Wyślij wiadomość do Klienta" %>
+    <% end %>
+    <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_order_path(@order), :title => "Edycja" %>
+    <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, @order], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+    <br/>
+    <%= link_to image_tag("icons/padlock.png", :size => "16x16"), {:controller => "admin/orders", :action => "mark_as_sent", :id => @order, :status => 4}, {:remote => true, :title => "Oznacz jako przedsprzedaż"} %>
+    <%= link_to image_tag("icons/delete.png", :size => "16x16"), {:controller => "admin/orders", :action => "mark_as_sent", :id => @order, :status => 6}, {:remote => true, :title => "Oznacz jako anulowane"} %>
+    <%= link_to image_tag("icons/email.png", :size => "16x16"), {:controller => "admin/orders", :action => "mark_as_sent", :id => @order, :status => 5}, {:remote => true, :title => "Wyślij powiadomienie do klienta"} %>
+    <%= link_to image_tag("icons/delivery.png", :size => "16x16"), {:controller => "admin/orders", :action => "mark_as_sent", :id => @order, :status => 3}, {:remote => true, :title => "Oznacz jako zrealizowane"} %>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<h2>Szczegóły obrazka</h2>
+
+<div>
+  <%= link_to image_tag(@photo.image.url(:thumb), :alt => @photo.title, :title => "Powiększ obraz", :class => "help"), {:controller => @photo.image.url(:original)}, :rel => "lytebox" %>
+
+  <p>
+    <b><%= "Tytuł obrazka:" %></b>
+    <%= @photo.title %>
+  </p>
+
+  <p>
+    <b><%= "Opis:" %></b>
+  </p>
+  <%= @photo.description.blank? ? "<p>Brak</p>" : @photo.description %>
+  <p>
+    <b><%= "Książka:" %></b>
+    <%= @photo.product.nil? ? "Brak" : @photo.product.name %>
+  </p>
+
+  <p>
+    <b><%= "Artykuł:" %></b>
+    <%= @photo.article.nil? ? "Brak" : @photo.article.title %>
+  </p>
+
+  <p>
+    <b><%= "Do rotatora:" %></b>
+    <%= @photo.rotator? ? "Tak" : "Nie" %>
+  </p>
+  <% if @photo.rotator? %>
+      <p>
+        <b><%= "Link:" %></b>
+        <%= @photo.rotator_link %>
+      </p>
+
+      <p>
+        <b><%= "Pozycja:" %></b>
+        <%= @photo.rotator_order %>
+      </p>
+  <% end %>
+
+  <br/>
+
+  <div style="text-align: center;">
+    <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, @photo], :title => "Szczegóły" %>
+    <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_photo_path(@photo), :title => "Edycja" %>
+    <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, @photo], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+  </div>
+</div>

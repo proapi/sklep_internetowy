@@ -1,0 +1,136 @@
+/* Form errors start */
+
+.field_with_errors {
+  font-weight: bold;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff;
+  }
+  ul li {
+    font-size: 12px;
+    list-style: square;
+  }
+}
+
+/* Form errors end */
+
+/* Flash message start */
+.flash {
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.flashalert {
+  @extend .flash;
+  color: red;
+  text-transform: uppercase;
+}
+
+.flashnotice {
+  @extend .flash;
+  color: red;
+  text-transform: uppercase;
+}
+
+/* Flash message end */
+
+/* Tab panes start */
+
+#tabsProdukt ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#tabsProdukt li {
+  float: left;
+  border: 0;
+  margin: 0;
+  height: 40px;
+}
+
+#tabsProdukt a {
+  text-decoration: none;
+  display: block;
+  background-image: url(image-path('graph/mainmenu/background.png'));
+  padding: 12px;
+  color: white;
+  width: 60px;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#tabsProdukt a:hover {
+  color: black;
+}
+
+#tabsProdukt #selected {
+}
+
+#tabsProdukt #selected a {
+  position: relative;
+  color: black;
+  font-weight: bolder;
+}
+
+#tabs-content {
+  clear: both;
+  padding: 0;
+}
+
+/* Tab panes end */
+
+/* filter form elements */
+.filter_form {
+  font-size: 11px;
+  text-align: center;
+}
+
+.filter_form select {
+  font-size: 11px;
+  width: 100%;
+}
+
+.filter_form input[type=submit] {
+  font-size: 11px;
+}
+
+.tabelka {
+  border: 1px solid #029834;
+}
+
+.tabelka th {
+  background-color: #029834;
+  color: #ffffff;
+}
+
+.tabelka td, .tabelka th {
+  border-spacing: 0 !important;
+  border: 1px solid #029834;
+  padding: 3px;
+}
+
+.login_field {
+  width: 200px;
+}

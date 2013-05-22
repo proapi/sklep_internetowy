@@ -1,0 +1,43 @@
+<h2>Lista wydawnictw</h2>
+
+<% unless @producers.empty? %>
+    <div style="text-align: center;">
+      <%= will_paginate(@producers) %>
+    </div>
+
+    <table style="width: 100%;">
+      <tr>
+        <th>Nazwa</th>
+        <th>Lokalizacja</th>
+        <th></th>
+      </tr>
+
+      <% @producers.each do |producer| %>
+          <tr>
+            <td><%= h producer.name %></td>
+            <td><%= h producer.city.blank? ? "Brak" : producer.city %></td>
+            <td>
+              <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, producer], :title => "Szczegóły" %>
+              <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_producer_path(producer), :title => "Edycja" %>
+              <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, producer], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <div style="text-align: center;">
+      <%= will_paginate(@producers) %>
+    </div>
+
+<% else %>
+    <p>Brak producentów!</p>
+<% end %>
+
+<%= form_for @search, :url => admin_producers_path, :html => {:method => :get} do |f| %>
+    <%= f.label "Nazwa" %><%= f.text_field :name_like %>
+    <%= f.label "Miasto" %><%= f.text_field :city_like %>
+    <br/>
+    <%= f.label "Sort: " %><%= f.sort_link :name, "nazwa" %>
+    <br/>
+    <%= f.submit "Filtr", :name => nil %>
+<% end %>

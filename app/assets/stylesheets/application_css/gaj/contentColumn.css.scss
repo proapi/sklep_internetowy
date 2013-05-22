@@ -1,0 +1,95 @@
+@CHARSET "UTF-8";
+
+#contentColumn {
+  float: left;
+  width: 585px;
+  margin: 0px 4px;
+  min-height: 300px;
+}
+
+#contentColumnHeader {
+  width: 565px;
+  background: url(image-path("graph/textHeaderBackground.png"));
+  background-repeat: no-repeat;
+  height: 17px;
+  color: #029834;
+  padding: 8px 0px 0px 20px;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0px;
+  text-transform: uppercase;
+}
+
+#contentColumnMiddle {
+  width: 563px;
+  border-style: solid;
+  border-color: #d1d1d1;
+  border-width: 0px 1px 0px 1px;
+  border-collapse: collapse;
+  border-spacing: 0px;
+  background-color: white;
+  padding: 0px 10px 10px 10px;
+  margin: 0px;
+  min-height: 390px;
+  height: auto !important;
+  height: 390px;
+  text-align: justify;
+/* TODO znaleźć definicję czcionek dla całego dokumentu */
+  font-size: 12px;
+}
+
+#contentColumnFooter {
+  width: 585px;
+  height: 17px;
+  margin: 0px;
+  padding: 0px;
+  background: url(image-path("graph/textHeaderBackgroundBottom.png"));
+}
+
+.headerSeparator {
+  height: 2px;
+  background-color: white;
+  width: 583px;
+  border-style: solid;
+  border-color: #d1d1d1;
+  border-width: 0px 1px 0px 1px;
+  border-collapse: collapse;
+  border-spacing: 0px;
+  padding: 5px 0px 10px 0px;
+}
+
+.headerSeparatorPattern {
+  height: 2px;
+  background-repeat: repeat-x;
+  background-image: url(image-path("graph/textSeparator.png"));
+  width: 563px;
+  margin: 0px 10px;
+  padding: 0px;
+}
+
+.flashSeparator {
+  height: 2px;
+  background-color: white;
+  width: 583px;
+  padding: 5px 0px 10px 0px;
+}
+
+.flashSeparatorPattern {
+  height: 2px;
+  background-repeat: repeat-x;
+  background-image: url(image-path("graph/textSeparator.png"));
+  width: 563px;
+  margin: 0;
+  padding: 0px;
+}
+
+.textSeparator {
+  width: 500px;
+  height: 2px;
+  margin: 5px auto;
+  line-height: 2px;
+  font-size: 1px;
+  padding: 0px;
+  background-repeat: repeat-x;
+  background: url(image-path("graph/textSeparator.png"));
+}

@@ -1,0 +1,48 @@
+<h1>Lista zdjęć</h1>
+
+<% if @photos.empty? %>
+    Aktualnie brak zdjęć w bazie danych.
+<% else %>
+    <div style="text-align: center;">
+      <%= will_paginate(@photos) %>
+    </div>
+
+    <table style="width: 100%;">
+      <tr>
+        <th>Zdjęcie</th>
+        <th>Książka
+        <th>Artykuł</th>
+        <th>Rotator</th>
+        <th style="width: 100px;"></th>
+      </tr>
+
+      <% @photos.each do |photo| %>
+          <tr>
+            <td><%= link_to(image_tag(photo.image.url(:thumb), :alt => photo.title), image_path(photo.image.url), :class => "fancybox_image") %></td>
+            <td><%= h photo.product.nil? ? "Brak" : photo.product.name %></td>
+            <td><%= h photo.article.nil? ? "Brak" : photo.article.title %></td>
+            <td><%= h photo.rotator? ? "Tak" : "Nie" %></td>
+            <td>
+              <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, photo], :title => "Szczegóły" %>
+              <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_photo_path(photo), :title => "Edycja" %>
+              <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, photo], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <div style="text-align: center;">
+      <%= will_paginate(@photos) %>
+    </div>
+<% end %>
+
+<%= form_for @search, :url => admin_photos_path, :html => {:method => :get} do |f| %>
+    <%= f.label "Tytuł" %><%= f.text_field :title_like %>
+    <%= f.label "Książka" %><%= f.text_field :product_name_like %>
+    <%= f.label "Artykuł" %><%= f.text_field :article_title_like %>
+    <%= f.label "Rotator" %><%= f.select :rotator_eq, options_for_select([["Tak", 1], ["Nie", 0]]), :include_blank => "Wszystkie" %>
+    <br/>
+    <%= f.label "Sort: " %><%= f.sort_link :title, " tytuł " %><%= f.sort_link :product_name, " książka " %>
+    <br/>
+    <%= f.submit "Filtr", :name => nil %>
+<% end %>

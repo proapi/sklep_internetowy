@@ -1,0 +1,58 @@
+<h2>Generowanie raportów</h2>
+
+<h3>Raport zamówień dla danego okresu:</h3>
+<%= form_for([:admin, @report], format: :pdf) do |f| %>
+    <% if @report.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wystąpiły następujące błędy:</h2>
+          <ul>
+            <% @report.errors.full_reports.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div style="float: left;">
+      <%= f.label :start, "Początek:" %>
+      <br/>
+      <%= f.date_select :start %>
+    </div>
+    <div style="float: right;">
+      <%= f.label :finish, "Koniec:" %>
+      <br/>
+      <%= f.date_select :finish %>
+    </div>
+    <p style="clear: both; text-align: center;">
+      <%= f.submit 'Generuj pdf z zamówieniami' %>
+    </p>
+<% end %>
+
+<h3>Główny raport dla całości sklepu dla danego okresu:</h3>
+
+<%= form_for([:admin, @report]) do |f| %>
+    <% if @report.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wystąpiły następujące błędy:</h2>
+          <ul>
+            <% @report.errors.full_reports.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div style="float: left;">
+      <%= f.label :start, "Początek:" %>
+      <br/>
+      <%= f.date_select :start %>
+    </div>
+    <div style="float: right;">
+      <%= f.label :finish, "Koniec:" %>
+      <br/>
+      <%= f.date_select :finish %>
+    </div>
+    <p style="clear: both; text-align: center;">
+      <%= f.submit 'Generuj raport' %>
+    </p>
+<% end %>

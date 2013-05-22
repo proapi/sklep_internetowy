@@ -1,0 +1,101 @@
+<div id="contentColumnHeader" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+  <!-- naglowek ##POCZATEK## -->
+  ZAMÓWIENIE KROK DRUGI
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash flash %>
+
+  <div style="text-align: center">
+    <%= image_tag("graph/pasek2.jpg") %>
+  </div>
+
+  <h2>Etap zamówienia: forma płatności(krok 2 z 4)</h2>
+
+  <p>Aby poprawnie złożyć zamówienie, należy przejść wszystkie kroki.<br/><br/><b>Potwierdzeniem poprawnego złożenia
+    zamówienia w
+    sklepie jest otrzymanie wiadomości e-mail na wskazany przy rejestracji adres.</b></p>
+
+  <%= form_for(@order) do |f| %>
+      <% if @order.errors.any? %>
+          <div id="error_explanation">
+            <h2>Wystąpiły następujące błędy:</h2>
+            <ul>
+              <% @order.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <br/>
+      <hr size="1" style="border-color: #029834"/>
+      <br/>
+
+      <h3>Wybierz formę dostawy:</h3>
+      <%= f.radio_button :delivery_method, "Poczta Polska", :checked => true, :class => "calculations" %>
+      <span style="color: #FF0000;"><b><%= f.label :delivery_method, "Przesyłka Pocztą Polską" %></b></span>
+      <br/><br/>
+      <%= f.radio_button :delivery_method, "Paczkomaty InPost", :class => "calculations" %>
+      <span style="color: #FF0000;"><b><%= f.label :delivery_method, "Paczkomaty InPost" %></b></span>
+
+      <div id='pack_machine_div' style="margin: 0; padding: 0;">
+        <br/>
+        <h4><%= f.label :pack_machine_id, "Wybierz paczkomat", :id => 'order_pack_machine_label' %></h4>
+        <%= f.select :pack_machine_id, options_for_pack_machines(@order.code, @order.pack_machine_id) %>
+      </div>
+
+      <h3 style="color: red;">Koszt dostawy:
+        <%= f.label :delivery_payment, number_to_currency(0), :id => 'order_delivery_payment_label' %>
+        <%= f.hidden_field :delivery_payment %>
+      </h3>
+
+      <br/>
+      <hr size="1" style="border-color: #029834"/>
+      <br/>
+
+      <h3>Wybierz formę płatności:</h3>
+      <%= f.radio_button :payment, "0", :checked => true, :class => "calculations" %>
+      <span style="color: #FF0000;"><b><%= f.label :payment_0, "Przedpłata przelewem na konto" %></b></span>
+
+      <br/><br/>
+      <%= f.radio_button :payment, "2", :class => "calculations" %>
+      <span style="color: #FF0000;"><b><%= f.label :payment_2, "Płatności on-line PayU(Platnosci.pl)" %></b></span>
+
+      <div id='payment_1_div' style="margin: 0; padding: 0;">
+        <br/>
+        <% if @order.total > 25.0 && session[:not_login].nil? %>
+            <%= f.radio_button :payment, "1", :class => "calculations" %>
+            <span style="color: #FF0000;"><b><%= f.label :payment_1, "Płatność gotówką przy odbiorze" %></b></span>
+        <% else %>
+            <p><b>Płatność gotówką przy odbiorze możliwa tylko dla zalogowanych Klientów przy zamówieniach na łączną
+              kwotę powyżej 25zł</b></p>
+        <% end %>
+      </div>
+           <br/><br/>
+      <p>
+        <%= f.submit 'Dalej', :style => "font-size: 15px; float: right;" %>
+        <%= f.submit "Wstecz", :style => "font-size: 15px; float: left;", :name => "back_button" unless @order.first_step? %>
+      </p>
+      <br/>
+  <% end %>
+
+  <div style="text-align: center; margin-top: 10px;">
+    <br/><%= button_to "Powrót do zakupów w sklepie", root_url, method: :get %>
+  </div>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>
+
+<script type="text/javascript">
+    pack_machines_js();
+</script>

@@ -1,0 +1,45 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  Stworzenie nowego hasła dla Klienta sklepu
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash(flash) %>
+
+  <div style="text-align: center;">
+
+    <%= form_for @client, :url => password_reset_path, :method => :put do |f| %>
+        <% if @client.errors.any? %>
+            <div id="error_explanation">
+              <h2>Wystąpiły następujące błędy:</h2>
+              <ul>
+                <% @client.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+        <%= f.label :password %>
+        <br/>
+        <%= f.password_field :password %>
+        <br/>
+        <br/>
+        <%= f.label :password_confirmation %>
+        <br/>
+        <%= f.password_field :password_confirmation %>
+        <br/>
+        <br/>
+        <%= f.submit "Zmień hasło" %>
+    <% end %>
+
+  </div>
+  <!-- treść ##KONIEC## -->
+</div>
+<div id="contentColumnFooter"></div>

@@ -1,0 +1,5 @@
+<% if @product.visible.eql?(false) %>
+$("#product_visible_<%= escape_javascript(@product.id.to_s) %>").html("<%= escape_javascript(link_to "NIE", {:controller => "admin/products", :action => "set_visible", :id => @product.id, :visible => "1"}, :remote => true) %>");
+<% elsif @product.visible.eql?(true) %>
+$("#product_visible_<%= escape_javascript(@product.id.to_s) %>").html("<%= escape_javascript(link_to "TAK", {:controller => "admin/products", :action => "set_visible", :id => @product.id, :visible => "0"}, :remote => true) %>");
+<% end %>

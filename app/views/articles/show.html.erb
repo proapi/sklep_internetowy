@@ -1,0 +1,59 @@
+<%= content_for :meta do %>
+    <% unless @article.meta_title.blank? %>
+        <title><%= @article.meta_title %></title>
+    <% else %>
+        <title><%= @article.title %></title>
+    <% end %>
+
+    <% unless @article.meta_keywords.blank? %>
+        <meta name="keywords" content="<%= @article.meta_keywords %>"/>
+    <% else %>
+        <meta name="keywords" content="poradnik, ksiezycowy, ekologiczny, zielarskie, poradniki, apteczka, zdrowia, zdrowie, ekologia, zbigniew przybylak, eko arka, biokurier"/>
+    <% end %>
+
+    <% unless @article.meta_description.blank? %>
+        <meta name="description" content="<%= @article.meta_description %>"/>
+    <% else %>
+        <meta name="description" content="Ekologiczny Poradnik Księżycowy, Poradniki Zielarskie, Żywność Ekologiczna, Ogrodnictwo Ekologiczne - Wydawnictwo Gaj, nasze tematy to zdrowie i ekologia"/>
+    <% end %>
+<% end %>
+
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  AKTUALNOŚCI
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <h2><%= @article.title %></h2>
+  <% if @article.photo %>
+      <div style="text-align: center; margin: 10px;">
+        <%= image_tag(@article.photo.image.url(:medium), :alt => @article.title, :title => @article.title, :class => "help") %>
+      </div>
+  <% end %>
+  <span style="color: gray; font-size: 9px;">
+      <%= l @article.created_at, :format => :long %><br/>
+    </span>
+
+  <% unless @article.subtitle.blank? %>
+      <p><b>
+        <%= @article.subtitle %>
+      </b></p>
+  <% end %>
+
+  <% if @article.body.blank? %>
+      <%= "Brak treści" %>
+  <% else %>
+      <%= raw @article.body %>
+  <% end %>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

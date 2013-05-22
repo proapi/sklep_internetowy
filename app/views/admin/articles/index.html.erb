@@ -1,0 +1,45 @@
+<h1>Lista artykułów</h1>
+
+<% unless @articles.empty? %>
+    <div style="text-align: center;">
+      <%= will_paginate(@articles) %>
+    </div>
+
+    <table style="width: 100%;">
+      <tr>
+        <th>Tytuł</th>
+        <th>Autor</th>
+        <th>Publiczny</th>
+        <th style="width: 100px;"></th>
+      </tr>
+
+      <% @articles.each do |article| %>
+          <tr>
+            <td><%= h article.title %></td>
+            <td><%= h article.user.full_name %></td>
+            <td><%= article.ready? ? "Tak" : "Nie" %></td>
+
+            <td>
+              <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, article], :title => "Szczegóły" %>
+              <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_article_path(article), :title => "Edycja" %>
+              <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, article], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <div style="text-align: center;">
+      <%= will_paginate(@articles) %>
+    </div>
+
+<% else %>
+    Brak artykułów.
+<% end %>
+
+<%= form_for @search, :url => admin_articles_path, :html => {:method => :get} do |f| %>
+    <%= f.label "Tytuł" %><%= f.text_field :title_like %>
+    <br/>
+    <%= f.label "Sort: " %><%= f.sort_link :title, " tytuł " %>
+    <br/>
+    <%= f.submit "Filtr", :name => nil %>
+<% end %>

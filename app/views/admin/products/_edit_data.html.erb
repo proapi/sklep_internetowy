@@ -1,0 +1,117 @@
+<div id="tabs">
+    <a id="selected" href="#">Dane książki</a>
+    <%= link_to "Promocja", edit_admin_product_path(@product, :destination => "promotion") %>
+    <%= link_to "Edytuj treść opisu", "/editor" + product_path(@product), target: "_blank" %>
+    <!--<li><%# link_to "Powiązane", edit_admin_product_path(@product, :destination => "relations") %></li> -->
+</div>
+
+<br/>
+
+<div>
+  <%= form_for [:admin, @product], :html => {:multipart => true} do |f| %>
+      <% if @product.errors.any? %>
+          <div id="error_explanation">
+            <h2>Wystąpiły następujące błędy:</h2>
+            <ul>
+              <% @product.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <p>
+        <%= f.label :name, "Tytuł książki:" %><br/>
+        <%= f.text_field :name %>
+      </p>
+
+      <p>
+        <%= f.label :description, "Opis:" %><br/>
+        <%= f.text_area :description, :class => "mceEditor", :style => "width: 100%; height: 400px;" %>
+      </p>
+
+      <p>
+        <%= f.label :producer_id, "Wydawca:" %><br/>
+        <%= f.collection_select :producer_id, Producer.all(:order => "name"), :id, :name, :include_blank => "Brak" %>
+      </p>
+
+      <p>
+        <%= f.label :author, "Autor:" %><br/>
+        <%= f.text_field :author %>
+      </p>
+
+      <p>
+        <%= f.label :book_format, "Format książki:" %><br/>
+        <%= f.text_field :book_format %>
+      </p>
+
+      <p>
+        <%= f.label :page_count, "Ilość stron:" %><br/>
+        <%= f.text_field :page_count %>
+      </p>
+
+      <p>
+        <%= f.label :category_ids, "Kategorie:" %><br/>
+        <%= f.collection_select :category_ids, Category.order("name"), :id, :name, {}, { :selected => @product.category_ids, :multiple => true } %>
+      </p>
+
+      <p>
+        <%= f.label :price, "Cena brutto książki:" %><br/>
+        <%= f.text_field :price %>
+      </p>
+
+      <p>
+        <%= f.label :discount, "Rabat od ceny [%]:" %><br/>
+        <%= f.text_field :discount %>
+      </p>
+
+      <h2>Okładka książki:</h2>
+      <% if @product.photo %>
+          <div style="text-align: center;">
+            <%= link_to image_tag(@product.photo.image.url(:thumb), :alt => @product.photo.title, :title => "Powiększ obraz", :class => "help"), {:controller => image_path(@product.photo.image.url(:original))}, :rel => "lytebox" %>
+          </div>
+      <% end %>
+      <%= f.fields_for :photo do |photo_form| %>
+          <p>
+            <%= photo_form.label :title, 'Tytuł obrazka:' %><br/>
+            <%= photo_form.text_field :title %>
+          </p>
+
+          <p>
+            <%= photo_form.label :image, 'Plik obrazka:' %><br/>
+            <%= photo_form.file_field :image %>
+          </p>
+          <% unless photo_form.object.new_record? %>
+              <br/>
+              <%= photo_form.label :_destroy, 'Usuń:' %>
+              <%= photo_form.check_box :_destroy %>
+          <% end %>
+      <% end %>
+
+      <h2>Opcjonalne ustawienia metatag:</h2>
+
+      <p>
+        <%= f.label :meta_title, "Tytuł strony(metatag title):" %><br/>
+        <%= f.text_field :meta_title %>
+      </p>
+
+      <p>
+        <%= f.label :meta_keywords, "Słowa kluczowe(metatag keywords):" %><br/>
+        <%= f.text_field :meta_keywords %>
+      </p>
+
+      <p>
+        <%= f.label :meta_description, "Opis strony(metatag description):" %><br/>
+        <%= f.text_field :meta_description %>
+      </p>
+
+      <p>
+        <%= f.label :visible, "Publikacja na stronie sklepu:" %><br/>
+        <%= f.check_box :visible %>
+      </p>
+
+      <p>
+        <%= f.submit "Zapisz zmiany" %>
+      </p>
+  <% end %>
+</div>

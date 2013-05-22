@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="content-language" content="pl"/>
+  <meta name="author" content="Michał Pawelski - kontakt@proapi.pl"/>
+  <meta name="distribution" content="global"/>
+  <meta name="robots" content="noindex,nofollow"/>
+
+  <%= stylesheet_link_tag "admin" %>
+  <%= javascript_include_tag "admin" %>
+  <%= csrf_meta_tags %>
+
+  <title>Wydawnictwo Gaj - Panel Administratora</title>
+</head>
+
+<body>
+<!-- wrap starts here -->
+<div id="wrap">
+
+  <!--header -->
+  <div id="header">
+
+    <h1 id="logo-text">Wydawnictwo Gaj</h1>
+
+    <p id="slogan">Panel administracyjny sklepu www.wydawnictwogaj.pl</p>
+
+    <div id="header-links">
+      <p>
+        <% if current_user %>
+            <%= link_to "Edycja profilu", edit_admin_user_path(current_user.id) %> |
+            <%= link_to "Wyloguj", logout_user_path %> <br/>
+            Zalogowany jako: <%= current_user.email %><br/>
+            Dzisiejsza data: <%= l Time.now, format: :long %><br/>
+            Ostatnie logowanie: <%= current_user.last_login_at ? l(current_user.last_login_at, format: :long) : "Brak" %>
+        <% end %>
+      </p>
+    </div>
+
+  </div>
+
+  <!-- content-wrap starts here -->
+  <div id="content-wrap">
+
+    <div id="sidebar">
+      <% if current_user %>
+          <%= render :partial => "search" %>
+      <% end %>
+    </div>
+
+    <div id="main">
+
+      <%= render_flash(flash) %>
+
+      <%= yield %>
+      <br/>
+
+    </div>
+
+    <!-- content-wrap ends here -->
+  </div>
+
+  <!--footer starts here-->
+  <div id="footer">
+    <p style="text-align: center;">
+      &copy; 2012 <strong>Proapi Profesjonalne Aplikacje Informatyczne - Michał Pawelski</strong> |
+      <a href="http://www.proapi.pl">www.proapi.pl</a> |
+      Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> |
+      <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
+    </p>
+  </div>
+
+  <!-- wrap ends here -->
+</div>
+
+</body>
+</html>

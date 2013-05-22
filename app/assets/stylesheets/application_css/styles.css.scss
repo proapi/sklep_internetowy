@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+@import "gaj/*";
+
+html {
+    height: 100%;
+    font-family: Verdana, Tahoma, Arial, sans-serif;
+    overflow: -moz-scrollbars-vertical;
+}
+
+body {
+    background-color:#FFFFFF;
+    height:100%;
+    margin: 0px;
+    padding:0;
+
+}
+
+.noFloat {
+    float: none;
+    clear:right;
+}
+
+.clearLeft {
+    clear: left;
+}
+
+.sort-select {
+ font-size: 9px;
+}

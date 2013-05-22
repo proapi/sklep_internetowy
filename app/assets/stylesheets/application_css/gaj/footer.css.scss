@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+#footer {
+    height:24px;
+    width:100%;
+    position:absolute;
+    bottom:0px;
+    background-color: white;
+}
+
+#footerContent, #footerContent a {
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    font-weight: bold;
+    width: 1000px;
+    font-size: 10px;
+    color: #029834;
+    margin-top: 2px;
+    text-decoration: none;
+}
+
+#footerSeparator {
+    margin-left:auto;
+    margin-right:auto;
+    width: 1000px;
+    height: 4px;
+    background-color: #029834;
+    font-size: 2px;
+}
+
+#footerMenu {
+    text-align:left;
+    width: 600px;
+    float:left;
+}
+
+#copyright {
+    text-align:right;
+    float:right;
+    width: 400px;
+    color: #d1d1d1;
+}

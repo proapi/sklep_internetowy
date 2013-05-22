@@ -1,0 +1,35 @@
+<%= form_for([:admin, @message]) do |f| %>
+    <% if @message.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wystąpiły następujące błędy:</h2>
+          <ul>
+            <% @message.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <p>
+      <%= f.label :title, "Tytuł wiadomości:" %><br/>
+      <%= f.text_field :title %>
+    </p>
+    <p>
+      <%= f.label :name, "Imię i nazwisko(nazwa):" %><br/>
+      <%= f.text_field :name, value: @client.nil? ? "" : @client.full_name %>
+    </p>
+    <p>
+      <%= f.label :email, "Adres email odbiorcy:" %><br/>
+      <%= f.text_field :email, value: @client.nil? ? "" : @client.email %>
+    </p>
+    <p>
+      <%= f.label :content, "Treść wiadomości:" %><br/>
+      <%= f.text_area :content, :class => "mceEditor", :style => "width: 100%; height: 400px;" %>
+    </p>
+    <% if @client %>
+        <%= f.hidden_field :client_id, value: @client.id %>
+    <% end %>
+    <p>
+      <%= f.submit 'Wyślij wiadomość' %>
+    </p>
+<% end %>

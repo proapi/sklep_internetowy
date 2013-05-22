@@ -1,0 +1,23 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  KOSZYK
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash(flash) %>
+
+  <div id="refresh_order_form_div">
+    <%= render partial: "orders/order" %>
+  </div>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

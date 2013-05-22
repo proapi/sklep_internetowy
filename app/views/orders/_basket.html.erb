@@ -1,0 +1,42 @@
+<% @order_items = session[:order_items] %>
+
+<% if @order_items.nil? || @order_items.empty? %>
+    <div class="columnContentBox">
+      <div style="padding-top: 25px; padding-bottom: 25px; text-align: center; font-weight: bold;">
+        Koszyk jest pusty.
+      </div>
+    </div>
+<% else %>
+    <div class="columnContentBox">
+      <% total = 0 %>
+      <% @order_items.each_with_index do |item, index| %>
+          <%= "#{index+1}. " %><%= link_to "#{ truncate(item.product.name, :length => 47)}", product_path(item.product) %>
+          <br/>
+          <span style="float: right;"><%= "szt. #{item.quantity} cena: #{number_to_currency(item.quantity*item.product.final_price.to_f)}" %></span><br/>
+          <% total += item.product.final_price.to_f*item.quantity -%>
+      <% end %>
+      <% if total < 9.49 %>
+          <br/>
+          <span style="color: red; text-align: right; font-weight: bold; float: right;" class="help" title="Nie została przekroczona minimalna wartość zamówienia.<br/>Aby dowiedzieć się więcej kliknij 'Pokaż koszyk'">
+          <%= "MINIMUM: #{number_to_currency(9.49)}" %>
+            </span>
+          <br/>
+            <span style="color: red; text-align: right; font-weight: bold; float: right;" class="help" title="Nie została przekroczona minimalna wartość zamówienia.<br/>Aby dowiedzieć się więcej kliknij 'Pokaż koszyk'">
+          <%= "BRAKUJE: #{number_to_currency(9.49-total)}" %>
+                </span>
+          <br/>
+      <% end %>
+      <br/>
+      <span style="text-align: right; font-weight: bold; float: right; color: red;">
+        <%= "RAZEM: #{number_to_currency(total)}" %>
+      </span>
+      <br/><br/>
+      <span style="text-align: right; font-weight: bold; float: right;">
+        <%= link_to "Pokaż koszyk", basket_orders_path %>
+        <% if total > 9.49 %>
+            &nbsp;|&nbsp;<%= link_to "Do kasy", new_order_path %>
+        <% end %>
+      </span>
+      <br/>
+    </div>
+<% end %>

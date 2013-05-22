@@ -1,0 +1,43 @@
+<h2>Lista użytkowników</h2>
+
+<% unless @users.empty? %>
+    <div style="text-align: center;">
+      <%= will_paginate(@users) %>
+    </div>
+
+    <table style="width: 100%;">
+      <tr>
+        <th>Email</th>
+        <th>Nazwa</th>
+        <th></th>
+      </tr>
+
+      <% @users.each do |user| %>
+          <tr>
+            <td><%= h user.email %></td>
+            <td><%= h user.full_name %></td>
+            <td>
+              <%= link_to image_tag("icons/info.png", :size => "16x16"), admin_user_path(user), :title => "Szczegóły" %>
+              <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_user_path(user), :title => "Edycja" %>
+              <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, user], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <div style="text-align: center;">
+      <%= will_paginate(@users) %>
+    </div>
+<% else %>
+    <p>Brak użytkowników.</p>
+<% end %>
+
+<%= form_for @search, :url => admin_users_path, :html => {:method => :get} do |f| %>
+    <%= f.label "Email" %><%= f.text_field :email_like %>
+    <%= f.label "Imię" %><%= f.text_field :name_like %>
+    <%= f.label "Nazwisko" %><%= f.text_field :last_name_like %>
+    <br/>
+    <%= f.label "Sort: " %><%= f.sort_link :email, " email " %>
+    <br/>
+    <%= f.submit "Filtr", :name => nil %>
+<% end %>

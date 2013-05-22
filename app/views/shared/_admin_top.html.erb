@@ -1,0 +1,11 @@
+<h3>Wyszukaj klienta</h3>
+
+<%= form_for(:client, url: admin_clients_path, :method => :get, :html => {:class => "searchform"}) do |f| %>
+    <%= f.autocomplete_field :last_name, autocomplete_client_last_name_admin_clients_path %>
+<% end %>
+
+<h3>Wyszukaj zamówienie</h3>
+
+<%= form_for(:order, url: admin_orders_path, :method => :get, :html => {:class => "searchform"}) do |f| %>
+    <%= f.autocomplete_field :number, autocomplete_order_number_admin_orders_path %>
+<% end %>

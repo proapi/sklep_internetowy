@@ -1,0 +1,9 @@
+<% unless category.products.empty? %>
+  <h5>Produkty w danej kategorii:</h5>
+  <% category.products.each do |product|  %>
+    <%= image_tag "graph/dot.png", :alt => "Kliknij na link, aby przejść do strony", :style => "margin-right: 7px; width: 15px; height: 18px; vertical-align: middle;" %>
+    <%= link_to product.name, {:action => "produkt", :id => product}, :title => "Szczegóły produktu" %><br/>
+  <% end %>
+<% else %>
+  <p>Brak produktów w danej kategorii!</p>
+<% end %>

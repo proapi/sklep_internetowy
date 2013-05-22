@@ -1,0 +1,64 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  PODSUMOWANIE ZAMÓWIENIA
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash flash %>
+
+  <div style="text-align: center">
+    <%= image_tag("graph/pasek4.jpg") %>
+  </div>
+
+  <h2>Etap zamówienia: potwierdzenie(krok 4 z 4)</h2>
+
+  <p>Dziękujemy!</p>
+
+  <p>Zamówienie zostało potwierdzone i zapisane. Na wskazany przy rejestracji adres została wysłana wiadomość e-mail
+    zawierająca wszystkie informacje o zamówieniu.</p>
+
+  <% if @order.payment.eql?(2) %>
+      <div style="text-align: center; margin-top: 20px;">
+        <p style="text-align: justify;">Zapraszamy do dokonania płatności elektronicznej za pomocą serwisu PayU - Platnosci.pl<br/>Po dokonaniu płatności w zewnętrznym serwisie zostaną Państwo przekierowani z powrotem do sklepu Wydawnictwa Gaj.</p><br/>
+        <%# TODO w produkcji zmienić tutaj dane z sandbox na właściwe informacje! %>
+        <form action="https://sandbox.payu.pl/paygw/UTF/NewPayment" method="POST" name="payform">
+          <input type="hidden" name="first_name" value="<%= @order.client.name.blank? ? '' : @order.client.name %>">
+          <input type="hidden" name="last_name" value="<%= @order.client.last_name.blank? ? '' : @order.client.last_name %>">
+          <input type="hidden" name="email" value="<%= @order.client.email.blank? ? '' : @order.client.email %>">
+          <input type="hidden" name="street" value="<%= @order.client.street.blank? ? '' : @order.client.street %>">
+          <input type="hidden" name="city" value="<%= @order.client.city.blank? ? '' : @order.client.city %>">
+          <input type="hidden" name="post_code" value="<%= @order.client.code.blank? ? '' : @order.client.code %>">
+          <input type="hidden" name="street_hn" value="<%= @order.client.building_no.blank? ? '' : @order.client.building_no %>">
+          <input type="hidden" name="street_an" value="<%= @order.client.place_no.blank? ? '' : @order.client.place_no %>">
+          <input type="hidden" name="phone" value="<%= @order.client.telephone.blank? ? '' : @order.client.telephone %>">
+          <input type="hidden" name="pos_id" value="40267">
+          <input type="hidden" name="pos_auth_key" value="JJ57K3b">
+          <input type="hidden" name="session_id" value="<%= Time.now.to_i %>">
+          <input type="hidden" name="amount" value="<%= (@order.total * 100).to_i %>">
+          <input type="hidden" name="desc" value="Zamówienie nr <%= @order.number %>">
+          <input type="hidden" name="order_id" value="<%= @order.number %>">
+          <input type="hidden" name="client_ip" value="<%= @remote_ip %>">
+          <input type="hidden" name="js" value="0">
+          <input type="image" src="/assets/graph/payu.png" alt="Zapłać poprzez PayU(Platnosci.pl)" name="submit"/>
+        </form>
+        <script>
+            $("#payu_js").val("1");
+        </script>
+      </div>
+  <% end %>
+
+  <div style="text-align: center; margin-top: 10px;">
+    <br/><%= button_to "Powrót na stronę główną", root_url, method: :get %>
+  </div>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

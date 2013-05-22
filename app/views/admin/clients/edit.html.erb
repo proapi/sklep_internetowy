@@ -1,0 +1,112 @@
+<h2>Edycja klienta</h2>
+
+<%= form_for([:admin, @client]) do |f| %>
+    <% if @client.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wystąpiły następujące błędy:</h2>
+          <ul>
+            <% @client.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <p>
+      <%= f.label :private, "Osoba prywatna:" %>
+      <br/>
+      <%= f.check_box :private, :checked => true %>
+    </p>
+
+    <p>
+      <%= f.label :email, "Email / login:" %>
+      <br/>
+      <%= f.text_field :email %>
+    </p>
+
+    <p>
+      <%= f.label :password, "Hasło:" %>
+      <br/>
+      <%= f.password_field :password %>
+    </p>
+
+    <p>
+      <%= f.label :password_confirmation, "Powtórz hasło:" %>
+      <br/>
+      <%= f.password_field :password_confirmation %>
+    </p>
+
+    <p>
+      <%= f.label :name, "Imię:" %>
+      <br/>
+      <%= f.text_field :name %>
+    </p>
+
+    <p>
+      <%= f.label :last_name, "Nazwisko:" %>
+      <br/>
+      <%= f.text_field :last_name %>
+    </p>
+
+    <p>
+      <%= f.label :street, "Ulica(nazwa wsi):" %>
+      <br/>
+      <%= f.text_field :street %>
+    </p>
+
+    <p>
+      <%= f.label :building_no, "Numer budynku:" %>
+      <br/>
+      <%= f.text_field :building_no %>
+    </p>
+
+    <p>
+      <%= f.label :place_no, "Numer lokalu:" %>
+      <br/>
+      <%= f.text_field :place_no %>
+    </p>
+
+    <p>
+      <%= f.label :city, "Miasto(poczta):" %>
+      <br/>
+      <%= f.text_field :city %>
+    </p>
+
+    <p>
+      <%= f.label :code, "Kod pocztowy:" %>
+      <br/>
+      <%= f.text_field :code %>
+    </p>
+
+    <p>
+      <%= f.label :telephone, "Telefon:" %>
+      <br/>
+      <%= f.text_field :telephone %>
+    </p>
+
+    <p>
+      <%= f.label :company, "Nazwa firmy:" %>
+      <br/>
+      <%= f.text_field :company %>
+    </p>
+
+    <p>
+      <%= f.label :company_nip, "NIP firmowy:" %>
+      <br/>
+      <%= f.text_field :company_nip %>
+    </p>
+
+    <p>
+      <%= f.label :description, "Opis" %><br/>
+      <%= f.text_area :description, :rows => 5, :style => "width: 100%;" %>
+    </p>
+    <p>
+      <%= f.label :agreement, "Oświadczam regulaminu:" %><br/>
+      <%= f.check_box :agreement %>
+    </p>
+
+    <p>
+      <%= f.submit "Zapisz zmiany" %>
+    </p>
+
+<% end %>

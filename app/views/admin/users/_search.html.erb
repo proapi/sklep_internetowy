@@ -1,0 +1,9 @@
+<%= render :partial => "shared/admin_top" %>
+
+<h3>Wyszukaj użytkownika</h3>
+
+<%= form_for(:user, url: admin_users_path, :method => :get, :html => {:class => "searchform"}) do |f| %>
+    <%= f.autocomplete_field :last_name, autocomplete_user_last_name_admin_users_path %>
+<% end %>
+
+<%= render :partial => "shared/admin_bottom" %>

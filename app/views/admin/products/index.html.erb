@@ -1,0 +1,81 @@
+<% unless @promo %>
+    <h2>Lista książek</h2>
+<% else %>
+    <h2>Lista aktualnych promocji książek</h2>
+<% end %>
+
+<% unless @products.empty? %>
+    <div style="text-align: center;">
+      <%= form_for @search, :url => admin_products_path, :html => {:method => :get} do |f| %>
+          <%= f.select :visible_eq, options_for_select([["Publikowana w sklepie", 1], ["Nie publikowana w sklepie", 0]]), :include_blank => "Wszystkie" %>
+          <% if @promo %>
+              <%= f.hidden_field :is_promotion_eq, :value => true %>
+          <% end %>
+          <%= f.sort_link :name, "nazwa" %>
+          <%= f.sort_link :updated_at, "data" %>
+          <%= f.submit "Filtruj", :name => nil, :style => "width: 110px;" %>
+      <% end %>
+
+      <%= will_paginate(@products) %>
+    </div>
+
+    <table style="width: 100%;">
+      <tr>
+        <th>Nazwa</th>
+        <th style="width: 10px;">Publiczna</th>
+        <th>Kategoria</th>
+        <th style="width: 130px;"></th>
+      </tr>
+
+      <% @products.each do |product| %>
+          <tr>
+            <td><%= h product.name %></td>
+            <td id="<%= "product_visible_#{product.id}" %>">
+              <% unless product.visible? %>
+                  <%= link_to "NIE", {:controller => "admin/products", :action => "set_visible", :id => product.id, :visible => 1}, :remote => true %>
+              <% else %>
+                  <%= link_to "TAK", {:controller => "admin/products", :action => "set_visible", :id => product.id, :visible => 0}, :remote => true %>
+              <% end %>
+            </td>
+
+            <% unless product.categories.empty? %>
+                <td>
+                  <% product.categories.each do |cat| %>
+                      <%= h cat.name + " " %>&nbsp;
+                  <% end %>
+                </td>
+            <% else %>
+                <td><%= "Brak" %></td>
+            <% end %>
+
+            <td>
+              <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, product], :title => "Szczegóły" %>
+              <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_product_path(product), :title => "Edycja" %>
+              <%= link_to image_tag("icons/editor.png", :size => "16x16"), "/editor" + product_path(product), target: "_blank", title: "Edycja treści opisu" %>
+              <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, product], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+    <div style="text-align: center;">
+      <%= will_paginate(@products) %>
+    </div>
+<% else %>
+    <p>Brak produktów!</p>
+<% end %>
+
+<%= form_for @search, :url => admin_products_path, :html => {method: :get} do |f| %>
+    <%= f.label "Nazwa: " %>
+    <%= f.text_field :name_like, style: "width: 100%;" %>
+    <%= f.label "Kategoria: " %>
+    <%= f.collection_select :categories_id_eq, Category.where("parent_id is null"), :id, :name, :include_blank => "Wszystkie" %>
+    <%= f.label "Cena od: " %>
+    <%= f.select :price_greater_than_or_equal_to, options_for_select([["10,00", 10], ["20,00", 20], ["50,00", 50], ["100,00", 100]]), :include_blank => "Wszystkie" %>
+    <%= f.label "Wydawca: " %>
+    <%= f.collection_select :producer_id_eq, Producer.all, :id, :name, :include_blank => "Wszyscy" %>
+    <%= f.label "Cena do: " %>
+    <%= f.select :price_less_than_or_equal_to, options_for_select([["10,00", 10], ["20,00", 20], ["50,00", 50], ["100,00", 100]]), :include_blank => "Wszystkie" %>
+    <%= f.label "Sort: " %>
+    <%= f.sort_link :name, " nazwa " %><%= f.sort_link :price, " cena " %><%= f.sort_link :producer, "wydawca " %><%= f.sort_link :category, " kategoria " %>
+    <%= f.submit "Filtr", name: nil %>
+<% end %>

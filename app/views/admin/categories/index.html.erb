@@ -1,0 +1,43 @@
+<h2>Lista kategorii</h2>
+
+<% unless @categories.empty? %>
+    <div style="text-align: center;">
+      <%= will_paginate(@categories) %>
+    </div>
+
+    <table style="width: 100%;">
+      <tr>
+        <th>Nazwa</th>
+        <th>Skrót</th>
+        <th>Nr</th>
+        <th></th>
+      </tr>
+
+      <% @categories.each do |category| %>
+          <tr>
+            <td><%= h category.name %></td>
+            <td><%= h category.alias.blank? ? "Brak" : category.alias %></td>
+            <td><%= category.list_order %></td>
+            <td>
+              <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, category], :title => "Szczegóły" %>
+              <%= link_to image_tag("icons/modify.png", :size => "16x16"), edit_admin_category_path(category), :title => "Edycja" %>
+              <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, category], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <div style="text-align: center;">
+      <%= will_paginate(@categories) %>
+    </div>
+<% else %>
+    <p>Brak kategorii!</p>
+<% end %>
+
+<%= form_for @search, :url => admin_categories_path, :html => {:method => :get} do |f| %>
+    <%= f.label "Nazwa" %><%= f.text_field :name_like %>
+    <br/>
+    <%= f.label "Sort: " %><%= f.sort_link :name, " nazwa " %>
+    <br/>
+    <%= f.submit "Filtr", :name => nil %>
+<% end %>

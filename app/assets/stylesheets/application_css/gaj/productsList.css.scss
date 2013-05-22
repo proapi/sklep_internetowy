@@ -1,0 +1,54 @@
+@CHARSET "UTF-8";
+
+#productsList {
+
+}
+
+.product {
+	padding: 0px;
+        margin: 0px;
+        width: 100%;
+}
+
+.productPicture {
+	width: 180px;
+	text-align: center;
+	border-style: none;
+	border-color: #d1d1d1;
+	border-width: 0px 1px 0px 0px;
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+.productPicture img {
+    border-style: none;
+    border: 0;
+}
+
+.productProperties, .productDescription {
+	padding-left: 20px;
+	vertical-align: top;
+	width: 280px;
+}
+
+.productDescription {
+	padding-top: 10px;
+	font-size: 10px;
+}
+
+.productProperties .propertyName {
+	font-size: 10px;
+	font-weight: bold;
+	width:120px;
+	color: #029834;
+}
+
+.productProperties .propertyValue {
+	font-size: 10px;
+	font-weight: normal;
+        text-align: left;
+}
+
+.productDetailsProperties {
+	width: 280px;
+}

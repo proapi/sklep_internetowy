@@ -1,0 +1,15 @@
+#nav { z-index: 50; position: absolute; bottom: 10px; }
+#nav a { margin: 0 5px; padding: 3px 5px; border: 1px solid #fff; background: #ccc; text-decoration: none; color: #222; }
+#nav a { -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+#nav a.activeSlide { background: #aaa }
+#nav a:focus { outline: none; }
+
+#buttons { z-index: 50; position: absolute; bottom: 10px;}
+#buttons #next { padding: 3px 5px; border: 1px solid #fff; background: #ccc; text-decoration: none; color: #222; }
+#buttons #next { margin-left: 507px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+#buttons #prev { padding: 3px 5px; border: 1px solid #fff; background: #ccc; text-decoration: none; color: #222; }
+#buttons #prev { margin-left: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+
+.pics { height: 350px; width: 560px; padding:0; margin: auto; overflow: hidden }
+.pics .img-link { border: 0; margin: 0; padding: 0; text-decoration: none; }
+.pics .img-link img { height: 350px; width: 560px; padding: 0; margin: 0;  border: 0; background-color: transparent; top:0; left:0 }

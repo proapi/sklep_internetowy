@@ -1,0 +1,13 @@
+<h2>Wyniki sprzedaży</h2>
+
+<h3>Okres raportu:</h3>
+<p>
+  <strong>Data początkowa: </strong> <%= l @report.start, format: :long %><br/>
+  <strong>Data końcowa: </strong> <%= l @report.finish, format: :long %>
+</p>
+<h3>Dane:</h3>
+<p>
+  <strong>Całkowita sprzedaż: </strong> <%= number_to_currency @report.total %><br/>
+  <strong>Całkowita ilość zamówień zrealizowanych: </strong> <%= @report.orders_quantity %><br/>
+  <strong>Całkowita ilość książek w zamówieniach: </strong> <%= @report.products_quantity %><br/>
+</p>

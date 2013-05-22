@@ -1,0 +1,190 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  Edycja danych klienta sklepu
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash(flash) %>
+
+  <div style="text-align: center;">
+
+    <%= form_for(@client) do |f| %>
+        <% if @client.errors.any? %>
+            <div id="error_explanation">
+              <h2>Wystąpiły następujące błędy:</h2>
+              <ul>
+                <% @client.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <table style="margin-left: 70px;">
+          <tr>
+            <td>
+              <%= f.label :private, "Osoba prywatna:" %>
+            </td>
+            <td>
+              <%= f.check_box :private, :checked => true %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Osoba prywatna # Proszę zaznaczyć, jeżeli osoba rejestrująca jest osobą prywatną.<br>W przeciwnym razie proszę zostawić pole bez zaznaczenia.", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :password, "Hasło:" %>
+            </td>
+            <td>
+              <%= f.password_field :password %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Hasło # Proszę wpisać hasło powiązane z kontem Klienta.<br>Hasło powinno składać się z minimalnie 4 znaków(a-z, A-Z, 0-9)<br><b>Pole obowiązkowe!<b>", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :password_confirmation, "Powtórz hasło:" %>
+            </td>
+            <td>
+              <%= f.password_field :password_confirmation %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Potwierdzenie hasła # Proszę wpisać hasło powiązane z kontem Klienta.<br>Hasło powinno składać się z minimalnie 4 znaków(a-z, A-Z, 0-9)<br><b>Pole obowiązkowe!<b>", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :name, "Imię:" %>
+            </td>
+            <td>
+              <%= f.text_field :name %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Imię # Proszę wpisać swoje imię.", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :last_name, "Nazwisko:" %>
+            </td>
+            <td>
+              <%= f.text_field :last_name %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Nazwisko # Proszę wpisać swoje nazwisko.", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :street, "Ulica(nazwa wsi):" %>
+            </td>
+            <td>
+              <%= f.text_field :street %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Adres # Proszę wpisać ulicę.", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :building_no, "Numer budynku:" %>
+            </td>
+            <td>
+              <%= f.text_field :building_no %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Adres # Proszę wpisać numer budynku.", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :place_no, "Numer lokalu:" %>
+            </td>
+            <td>
+              <%= f.text_field :place_no %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Adres # Proszę wpisać numer lokalu.", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :city, "Miasto(poczta):" %>
+            </td>
+            <td>
+              <%= f.text_field :city %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Miasto # Proszę wpisać swoje miasto.", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :code, "Kod pocztowy:" %>
+            </td>
+            <td>
+              <%= f.text_field :code %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Kod pocztowy # Proszę wpisać swój kod pocztowy.", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :telephone, "Telefon:" %>
+            </td>
+            <td>
+              <%= f.text_field :telephone %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Telefon # Proszę wpisać numer telefonu.<br><b>Pole obowiązkowe!<b>", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :company, "Nazwa firmy:" %>
+            </td>
+            <td>
+              <%= f.text_field :company %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: Nazwa firmy # Proszę wpisać nazwę firmy, jeżeli konto Klienta ma być kontem firmowym.<br /><b>Pole wymagane tylko w przypadku niezaznaczenia pola Osoba prywatna!</b>", :class => "help" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.label :company_nip, "NIP firmowy:" %>
+            </td>
+            <td>
+              <%= f.text_field :company_nip %>
+            </td>
+            <td>
+              <%= image_tag "icons/info.png", :alt => "Pomoc", :size => "20x20", :style => "vertical-align: middle;", :title => "Pole: NIP firmowy # Proszę wpisać nip firmy, jeżeli konto Klienta ma być kontem firmowym.<br /><b>Pole wymagane tylko w przypadku niezaznaczenia pola Osoba prywatna!</b>", :class => "help" %>
+            </td>
+          </tr>
+        </table>
+
+        <p>
+          <%= f.label :description, "Opis" %><br/>
+          <%= f.text_area :description, :rows => 5, :style => "width: 100%;" %>
+        </p>
+
+        <p>
+          <%= f.submit "Zatwierdź dane" %>
+        </p>
+
+    <% end %>
+
+  </div>
+  <!-- treść ##KONIEC## -->
+</div>
+<div id="contentColumnFooter"></div>

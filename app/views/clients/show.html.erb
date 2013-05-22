@@ -1,0 +1,78 @@
+<h2>Szczegóły klienta</h2>
+
+<div style="text-align: left;">
+
+  <p>
+    <b>Imię i nazwisko:</b>
+    <%= h @client.name + " " + @client.last_name %>
+  </p>
+
+  <p>
+    <b>Email/login:</b>
+    <%= h @client.email %>
+  </p>
+
+  <p>
+    <b>Telefon:</b>
+    <%= h @client.telephone %>
+  </p>
+
+  <p>
+    <b>Ulica(nazwa wsi):</b>
+    <%= h @client.street %>
+  </p>
+
+  <p>
+    <b>Numer budynku / numer lokalu</b>
+    <%= h "#{@client.building_no}" %> <%= @client.place_no.blank? ? "" : "/ #{@client.place_no}" %>
+  </p>
+
+  <p>
+    <b>Miasto(poczta), kod pocztowy:</b>
+    <%= h @client.city + " " + @client.code %>
+  </p>
+
+  <% unless @client.description.blank? %>
+      <p>
+        <b>Uwagi/opis:</b>
+      </p>
+      <%= @client.description %>
+  <% end %>
+
+  <% unless @client.private? %>
+      <p>
+        <b>Nazwa firmy:</b>
+        <%= h @client.company %>
+      </p>
+
+      <p>
+        <b>NIP firmowy:</b>
+        <%= h @client.company_nip %>
+      </p>
+  <% end %>
+
+</div>
+
+<h2>Zamówienia</h2>
+
+<table style="width: 100%">
+  <tr>
+    <th>Numer</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+
+  <% @client.orders.each do |order| %>
+      <tr>
+        <td><%= h link_to order.number, order %></td>
+        <td>
+          <div id="<%= "status_#{order.id}" %>">
+            <%= order.status_text %>
+          </div>
+        </td>
+        <td>
+          <%= link_to image_tag("icons/info.png", :size => "16x16"), order, :title => "Szczegóły" %>
+        </td>
+      </tr>
+  <% end %>
+</table>

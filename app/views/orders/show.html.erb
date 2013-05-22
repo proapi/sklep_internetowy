@@ -1,0 +1,142 @@
+<div id="contentColumnHeader">
+  <!-- naglowek ##POCZATEK## -->
+  ZAMÓWIENIE
+  <!-- naglowek ##KONIEC## -->
+</div>
+
+<div class="headerSeparator">
+  <div class="headerSeparatorPattern"></div>
+</div>
+
+<div id="contentColumnMiddle">
+  <!-- treść ##POCZATEK## -->
+
+  <%= render_flash flash %>
+
+
+  <% if @order.payment.eql?(2) %>
+      <div style="text-align: center;">
+        <p style="text-align: justify;"><b>Zapraszamy do dokonania płatności elektronicznej za pomocą serwisu PayU -
+          Platnosci.pl</b><br/><br/>Po dokonaniu płatności w zewnętrznym serwisie zostaną Państwo przekierowani z
+          powrotem do
+          sklepu Wydawnictwa Gaj.</p><br/>
+        <%# TODO w produkcji zmienić tutaj dane z sandbox na właściwe informacje! %>
+        <form action="https://sandbox.payu.pl/paygw/UTF/NewPayment" method="POST" name="payform">
+          <input type="hidden" name="first_name" value="<%= @order.client.name.blank? ? '' : @order.client.name %>">
+          <input type="hidden" name="last_name" value="<%= @order.client.last_name.blank? ? '' : @order.client.last_name %>">
+          <input type="hidden" name="email" value="<%= @order.client.email.blank? ? '' : @order.client.email %>">
+          <input type="hidden" name="street" value="<%= @order.client.street.blank? ? '' : @order.client.street %>">
+          <input type="hidden" name="city" value="<%= @order.client.city.blank? ? '' : @order.client.city %>">
+          <input type="hidden" name="post_code" value="<%= @order.client.code.blank? ? '' : @order.client.code %>">
+          <input type="hidden" name="street_hn" value="<%= @order.client.building_no.blank? ? '' : @order.client.building_no %>">
+          <input type="hidden" name="street_an" value="<%= @order.client.place_no.blank? ? '' : @order.client.place_no %>">
+          <input type="hidden" name="phone" value="<%= @order.client.telephone.blank? ? '' : @order.client.telephone %>">
+          <input type="hidden" name="pos_id" value="40267">
+          <input type="hidden" name="pos_auth_key" value="JJ57K3b">
+          <input type="hidden" name="session_id" value="<%= Time.now.to_i %>">
+          <input type="hidden" name="amount" value="<%= (@order.total * 100).to_i %>">
+          <input type="hidden" name="desc" value="Zamówienie nr <%= @order.number %>">
+          <input type="hidden" name="order_id" value="<%= @order.number %>">
+          <input type="hidden" name="client_ip" value="<%= @remote_ip %>">
+          <input type="hidden" name="js" value="0">
+          <input type="image" src="/assets/graph/payu.png" alt="Zapłać poprzez PayU(Platnosci.pl)" name="submit"/>
+        </form>
+        <script>
+            $("#payu_js").val("1");
+        </script>
+      </div>
+      <br/>
+      <br/>
+      <hr size="1" style="border-color: #029834"/>
+      <br/>
+  <% end %>
+
+  <h2>Informacje o zamówieniu:</h2>
+
+  <p>
+    Numer zamówienia: <%= @order.number %>
+  </p>
+
+  <p>
+    Status zamówienia: <%= @order.status_text %>
+  </p>
+
+  <p>
+    Forma płatności: <%= Order.payments[@order.payment] %>
+  </p>
+
+  <p>
+    Forma dostawy: <%= @order.delivery_method %>
+  </p>
+
+  <p>
+    Koszt wysyłki: <%= number_to_currency(@order.delivery_payment) %>
+  </p>
+
+  <% unless @order.delivery_method.eql?('Poczta Polska') %>
+      <p>
+        Wybrany paczkomat:
+        <%= "#{@order.pack_machine_id? ? @order.pack_machine.to_s : 'Brak informacji'}" %>
+      </p>
+  <% end %>
+
+  <h2>Zamówione książki:</h2>
+  <% @order.order_items.each_with_index do |item, index| %>
+      <% if item.product %>
+          <%= "#{index+1}. " %><%= link_to "#{ truncate(item.product.name, :length => 47)}", product_path(item.product) %>
+          <%= "szt. #{item.quantity} cena: #{number_to_currency(item.quantity*item.product.final_price.to_f)}" %>
+      <% else %>
+          Produkt usunięto z oferty sklepu!
+      <% end %>
+      <br/>
+  <% end %>
+  <p>Całkowity koszt zamówienia: <%= @order.total + @order.delivery_payment %></p>
+
+  <h2>Adres wysyłki:</h2>
+
+  <% if @order.delivery_method.eql?('Poczta Polska') %>
+      <p>
+        Imię i nazwisko / Nazwa: <%= h @order.client.full_name %>
+      </p>
+
+      <p>
+        Ulica: <%= h @order.street %>
+      </p>
+
+      <p>
+        Numer budynku / numer
+        lokalu: <%= "#{@order.building_no}" %><%= @order.place_no.blank? ? "" : "/ #{@order.place_no}" %>
+      </p>
+
+      <p>
+        Kod pocztowy, miejscowość: <%= h @order.code %> <%= h @order.city %>
+      </p>
+  <% else %>
+      <p>
+        <%= "#{@order.pack_machine_id? ? @order.pack_machine.to_s : 'Brak informacji'}" %>
+      </p>
+  <% end %>
+
+  <h2>Adres płatnika:</h2>
+
+  <p>
+    Imię i nazwisko / Nazwa: <%= h @order.client.full_name %>
+  </p>
+
+  <p>
+    Ulica: <%= h @order.client.street %>
+  </p>
+
+  <p>
+    Numer budynku / numer
+    lokalu: <%= "#{@order.client.building_no}" %><%= @order.client.place_no.blank? ? "" : "/ #{@order.client.place_no}" %>
+  </p>
+
+  <p>
+    Kod pocztowy, miejscowość: <%= h @order.client.code %> <%= h @order.client.city %>
+  </p>
+
+  <!-- treść ##KONIEC## -->
+</div>
+
+<div id="contentColumnFooter"></div>

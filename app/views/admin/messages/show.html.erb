@@ -1,0 +1,49 @@
+<h2>Szczegóły wiadomości</h2>
+
+<div>
+  <p>
+    <b>Nazwisko i imie(nazwa):</b>
+    <%= @message.name %>
+  </p>
+
+  <p>
+    <b>Email:</b>
+    <%= @message.email %>
+  </p>
+
+  <p>
+    <b>Tytuł:</b>
+    <%= @message.title %>
+  </p>
+
+  <p>
+    <b>Treść:</b>
+    <%= strip_tags @message.content %>
+  </p>
+
+  <p>
+    <b>Klient powiązany:</b>
+    <% if @message.client %>
+        <%= link_to @message.client.full_name, [:admin, @message.client] %>
+    <% else %>
+        Brak
+    <% end %>
+  </p>
+
+  <p>
+    <b>Użytkownik tworzący:</b>
+    <%= link_to @message.user.full_name, [:admin, @message.user] %>
+  </p>
+
+  <p>
+    <b>Data wysłania:</b>
+    <%= l @message.created_at %>
+  </p>
+
+  <br/>
+
+  <div style="text-align: center;">
+    <%= link_to image_tag("icons/info.png", :size => "16x16"), [:admin, @message], :title => "Szczegóły" %>
+    <%= link_to image_tag("icons/trash.png", :size => "16x16"), [:admin, @message], :confirm => 'Czy jesteś pewien?', :method => :delete, :title => "Usuń" %>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<% unless category.children.empty? %>
+  <h5>Kategorie pośrednie:</h5>
+  <% category.children.each do |child|  %>
+   <%= image_tag "graph/dot.png", :alt => "Kliknij na link, aby przejść do strony", :style => "margin-right: 7px; width: 15px; height: 18px; vertical-align: middle;" %>
+    <%= link_to child.name, {:action => "refresh_products_list", :id => child.id }, :remote => true %><br/>
+  <% end %>
+<% else %>
+  <p>Brak kategorii pośrednich!</p>
+<% end %>

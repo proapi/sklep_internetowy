@@ -1,0 +1,355 @@
+# Polish translations for Ruby on Rails
+# by Jacek Becela (jacek.becela@gmail.com, http://github.com/ncr)
+# Minor changes and adjustments for Rails 3 by Piotrek Okoński (http://github.com/pokonski)
+# Minor changes and adjustments by Paweł Chojnacki (https://github.com/chojnacki)
+
+pl:
+  date:
+    formats:
+      default: "%d-%m-%Y"
+      short: "%d %b"
+      report: "%d_%m_%Y"
+      long: "%B %d, %Y"
+
+    day_names:
+      - niedziela
+      - poniedziałek
+      - wtorek
+      - środa
+      - czwartek
+      - piątek
+      - sobota
+    abbr_day_names:
+      - nie
+      - pon
+      - wto
+      - śro
+      - czw
+      - pią
+      - sob
+
+    month_names:
+      - ~
+      - styczeń
+      - luty
+      - marzec
+      - kwiecień
+      - maj
+      - czerwiec
+      - lipiec
+      - sierpień
+      - wrzesień
+      - październik
+      - listopad
+      - grudzień
+    abbr_month_names:
+      - ~
+      - sty
+      - lut
+      - mar
+      - kwi
+      - maj
+      - cze
+      - lip
+      - sie
+      - wrz
+      - paź
+      - lis
+      - gru
+    order:
+      - :day
+      - :month
+      - :year
+
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b %H:%M"
+      long: "%B %d, %Y %H:%M"
+    am: "przed południem"
+    pm: "po południu"
+
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " i "
+      last_word_connector: " oraz "
+      sentence_connector: "i"
+      skip_last_comma: true
+    select:
+      prompt: "Proszę wybrać"
+
+  number:
+    format:
+      separator: ","
+      delimiter: " "
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+
+    currency:
+      format:
+        format: "%n %u"
+        unit: "zł"
+        separator: ","
+        delimiter: " "
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+
+    percentage:
+      format:
+        delimiter: ""
+
+    precision:
+      format:
+        delimiter: ""
+
+    human:
+      format:
+        delimiter: ""
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one:   "bajt"
+            other: "bajty"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: Tysiąc
+          million: Milion
+          billion: Miliard
+          trillion: Bilion
+          quadrillion: Biliard
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "pół minuty"
+      less_than_x_seconds:
+        one:   "mniej niż sekundę"
+        few:   "mniej niż %{count} sekundy"
+        other: "mniej niż %{count} sekund"
+      x_seconds:
+        one:   "1 sekunda"
+        few:   "%{count} sekundy"
+        other: "%{count} sekund"
+      less_than_x_minutes:
+        one:   "mniej niż minutę"
+        few:   "mniej niż %{count} minuty"
+        other: "mniej niż %{count} minut"
+      x_minutes:
+        one:   "1 minuta"
+        few:   "%{count} minuty"
+        other: "%{count} minut"
+      about_x_hours:
+        one:   "około godziny"
+        few:   "około %{count} godziny"
+        other: "około %{count} godzin"
+      x_days:
+        one:   "1 dzień"
+        few:   "%{count} dni"
+        other: "%{count} dni"
+      about_x_months:
+        one:   "około miesiąca"
+        few:   "około %{count} miesiące"
+        other: "około %{count} miesięcy"
+      x_months:
+        one:   "1 miesiąc"
+        few:   "%{count} miesiące"
+        other: "%{count} miesięcy"
+      about_x_years:
+        one:   "około rok"
+        few:   "około %{count} lata"
+        other: "około %{count} lat"
+      over_x_years:
+        one:   "ponad rok"
+        few:   "ponad %{count} lata"
+        other: "ponad %{count} lat"
+      almost_x_years:
+        one:   "prawie rok"
+        few:   "prawie %{count} lata"
+        other: "prawie %{count} lat"
+    prompts:
+      year:   "Rok"
+      month:  "Miesiąc"
+      day:    "Dzień"
+      hour:   "Godzina"
+      minute: "Minuta"
+      second: "Sekundy"
+
+  helpers:
+    select:
+      prompt: "Proszę wybrać"
+
+    submit:
+      create: 'Utwórz %{model}'
+      update: 'Aktualizuj %{model}'
+      submit: 'Zapisz %{model}'
+
+  errors:
+    format: "Pole %{attribute} %{message}"
+
+    messages: &errors_messages
+      inclusion: "nie znajduje się na liście dopuszczalnych wartości"
+      exclusion: "jest zarezerwowane"
+      invalid: "jest nieprawidłowe"
+      confirmation: "nie zgadza się z potwierdzeniem"
+      accepted: "musi zostać zaakceptowane"
+      empty: "nie może być puste"
+      blank: "nie może być puste"
+      too_long: "jest za długie (maksymalnie %{count} znaków)"
+      too_short: "jest za krótkie (przynajmniej %{count} znaków)"
+      wrong_length: "ma nieprawidłową długość (powinna wynosić %{count} znaków)"
+      not_a_number: "nie jest liczbą"
+      not_an_integer: "musi być liczbą całkowitą"
+      greater_than: "musi być większe od %{count}"
+      greater_than_or_equal_to: "musi być większe lub równe %{count}"
+      equal_to: "musi być równe %{count}"
+      less_than: "musi być mniejsze od %{count}"
+      less_than_or_equal_to: "musi być mniejsze lub równe %{count}"
+      odd: "musi być nieparzyste"
+      even: "musi być parzyste"
+      taken: "zostało już zajęte"
+      record_invalid: "Negatywne sprawdzenie poprawności: %{errors}"
+    template: &errors_template
+      header:
+        one: "%{model} nie został zachowany z powodu jednego błędu"
+        other: "%{model} nie został zachowany z powodu %{count} błędów"
+      body: "Błędy dotyczą następujących pól:"
+
+  activerecord:
+    errors:
+      messages:
+        <<: *errors_messages
+      template:
+        <<: *errors_template
+      full_messages:
+        format: "%{attribute} %{message}"
+    models:
+      user: "Użytkownik"
+      category: "Kategoria"
+      client: "Klient"
+      producer: "Wydawca"
+      product: "Książka"
+      category: "Kategoria"
+      article: "Artykuł"
+      entry: "Strona"
+      order: "Zamówienie"
+      client_session: "Sesja klienta"
+      user_session: "Sesja użytkownika"
+    attributes:
+      category:
+        name: "NAZWA"
+        alias: "SKRÓT"
+        description: "OPIS"
+      client:
+        name: "IMIĘ"
+        last_name: "NAZWISKO"
+        email: "EMAIL/LOGIN"
+        password: "HASŁO"
+        password_confirmation: "POWTÓRZENIE HASŁA"
+        telephone: "TELEFON"
+        private: "OSOBA PRYWATNA"
+        address: "ULICA(NAZWA WSI)"
+        city: "MIASTO(POCZTA)"
+        code: "KOD POCZTOWY"
+        street: "ULICA(NAZWA WSI)"
+        company: "NAZWA FIRMY"
+        company_nip: "NIP FIRMOWY"
+        description: "OPIS"
+        agreement: "AKCEPTACJA REGULAMINU"
+        building_no: "NUMER BUDYNKU"
+        place_no: "NUMER LOKALU"
+      producer:
+        name: "NAZWA"
+        address: "ADRES"
+        city: "KOD POCZTOWY, MIASTO"
+        email: "EMAIL"
+        telephone: "TELEFON"
+        www: "STRONA WWW"
+        description: "OPIS"
+      product:
+        name: "SKRÓCONA NAZWA"
+        full_name: "PEŁNA NAZWA"
+        desc_short: "SKRÓCONY OPIS"
+        desc_full: "PEŁNY OPIS"
+        warranty: "GWARANCJA[MIESIĄCE]"
+        producer_id: "WYDAWCA"
+        price: "CENA KATALOGOWA"
+        discount: "RABAT[%]"
+        sale_text: "TEKST WYPRZEDAŻY"
+        is_promotion: "AKTYWNA PROMOCJA"
+        promotion_price: "CENA PROMOCYJNA"
+        promotion_text: "TEKST PROMOCYJNY"
+      user:
+        email: "EMAIL/LOGIN"
+        name: "IMIĘ"
+        last_name: "NAZWISKO"
+        password: "HASŁO"
+        password_confirmation: "POWTÓRZENIE HASŁA"
+        description: "OPIS"
+      order:
+        full_name: "IMIĘ I NAZWISKO(NAZWA)"
+        email: "ADRES EMAIL"
+        email_confirmation: "POWTÓRZENIE ADRESU EMAIL"
+        city: "MIASTO(POCZTA)"
+        code: "KOD POCZTOWY"
+        street: "ULICA(NAZWA WSI)"
+        building_no: "NUMER BUDYNKU"
+        place_no: "NUMER LOKALU"
+        notice: "UWAGI DO ZAMÓWIENIA"
+        agreement: "AKCEPTACJA REGULAMINU"
+        pack_machine: "PACZKOMAT"
+        pack_machine_id: "PACZKOMAT"
+        payment: "FORMA PŁATNOŚCI"
+        delivery_method: "FORMA DOSTAWY"
+        total: "CAŁKOWITY KOSZT"
+        delivery_payment: "KOSZT DOSTAWY"
+
+  will_paginate:
+    previous_label: "<<"
+    next_label: ">>"
+    page_gap: "&hellip;"
+    page_entries_info:
+      single_page:
+        zero:  "Ilość: %{count} książek"
+        one:   "Ilość: %{count} książek"
+        other: "Ilość: %{count} książek"
+      multi_page: "Ilość: %{count} książek"
+
+  authlogic:
+    error_messages:
+      login_blank: "nie może być puste"
+      login_not_found: "jest niepoprawidłowy"
+      login_invalid: "powinien zawierać tylko znaki a-z, A-Z oraz cyfry 0-9"
+      consecutive_failed_logins_limit_exceeded: "Konto zablokowane z powodu zbyt dużej liczby nieudanych prób logowań"
+      email_invalid: "powinno zachować format email@domena.pl"
+      password_blank: "nie może być puste"
+      password_invalid: "jest nieprawidłowe"
+      not_active: "Twoje konto nie jest aktywne"
+      not_confirmed: "Twoje konto nie jest potwierdzone"
+      not_approved: "Twoje konto nie jest zatwierdzone"
+      no_authentication_details: "Nie podałeś żadnych danych do logowania"
+    models:
+      user_session: "SESJA UŻYTKOWNIKA"
+      client_session: "SESJA KLIENTA"
+    attributes:
+      user_session:
+        login: "LOGIN"
+        email: "EMAIL/LOGIN"
+        password: "HASŁO"
+        remember_me: "ZAPAMIĘTAJ MNIE"
+      client_session:
+        login: "LOGIN"
+        email: "EMAIL/LOGIN"
+        password: "HASŁO"
+        remember_me: "ZAPAMIĘTAJ MNIE"
