@@ -25,6 +25,7 @@
  *= require_self
  *
  * Minimum jQuery requirements are 1.7
+ * TODO tutaj był błąd przy deploy i musiałem zakomentować, żeby się assets:precompile zrobiło dobrze!
  * require mercury/dependencies/jquery-1.7
  *
  * You can include the Rails jQuery ujs script here to get some nicer behaviors in modals, panels and lightviews when
