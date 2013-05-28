@@ -10,7 +10,7 @@ class Report
   attribute :orders_quantity, type: Integer
   attribute :products_quantity, type: Integer
 
-  attr_accessible :start, :finish, :total, :products_quantity, :orders_quantity
+  attr_accessor :start, :finish, :total, :products_quantity, :orders_quantity
   validates_presence_of :start, :finish, :total, :products_quantity, :orders_quantity
 
   def helpers
