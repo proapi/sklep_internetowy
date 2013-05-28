@@ -22,7 +22,7 @@ gem 'tinymce-rails'
 gem "awesome_nested_set", ">= 2.1.2"
 gem 'will_paginate'
 gem "paperclip"
-gem 'mercury-rails'
+gem 'mercury-rails', git: 'https://github.com/jejacks0n/mercury.git'
 gem 'active_attr'
 gem 'prawn'
 gem 'nokogiri'
