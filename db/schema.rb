@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(:version => 20130330152808) do
     t.string   "title"
     t.text     "body"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.boolean  "ready",            :default => false
     t.string   "subtitle"
     t.string   "meta_title"
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(:version => 20130330152808) do
     t.string   "name"
     t.string   "alias"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
@@ -58,8 +58,8 @@ ActiveRecord::Schema.define(:version => 20130330152808) do
     t.string   "company"
     t.string   "company_nip"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "crypted_password",                      :null => false
     t.string   "password_salt",                         :null => false
     t.string   "persistence_token",                     :null => false
@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(:version => 20130330152808) do
   create_table "entries", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "meta_title"
     t.string   "meta_keywords"
     t.string   "meta_description"
@@ -132,16 +132,16 @@ ActiveRecord::Schema.define(:version => 20130330152808) do
     t.integer  "order_id"
     t.integer  "quantity"
     t.text     "notice"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "orders", :force => true do |t|
     t.string   "number"
     t.integer  "client_id"
     t.text     "notice"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.integer  "status",           :default => 0
     t.string   "building_no"
     t.string   "place_no"
@@ -154,8 +154,8 @@ ActiveRecord::Schema.define(:version => 20130330152808) do
     t.boolean  "agreement",        :default => true
     t.string   "delivery_method",  :default => "Poczta Polska"
     t.string   "delivery_info"
-    t.decimal  "total"
-    t.decimal  "delivery_payment"
+    t.decimal  "total",            :default => 0.0
+    t.decimal  "delivery_payment", :default => 0.0
     t.integer  "pack_machine_id"
   end
 
@@ -204,8 +204,8 @@ ActiveRecord::Schema.define(:version => 20130330152808) do
     t.string   "telephone"
     t.string   "www"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "priority",    :default => 1000
   end
 
@@ -216,8 +216,8 @@ ActiveRecord::Schema.define(:version => 20130330152808) do
     t.integer  "category_id"
     t.decimal  "price",            :precision => 8, :scale => 2
     t.integer  "discount"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
     t.boolean  "is_promotion"
     t.decimal  "promotion_price",  :precision => 8, :scale => 2
     t.string   "promotion_text"
@@ -243,8 +243,8 @@ ActiveRecord::Schema.define(:version => 20130330152808) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -256,8 +256,8 @@ ActiveRecord::Schema.define(:version => 20130330152808) do
     t.string   "name"
     t.string   "last_name"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "crypted_password",                   :null => false
     t.string   "password_salt",                      :null => false
     t.string   "persistence_token",                  :null => false

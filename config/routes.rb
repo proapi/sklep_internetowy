@@ -1,4 +1,4 @@
-Gaj::Application.routes.draw do
+SklepRowerowy::Application.routes.draw do
 
   get 'payments/accepted'
   get 'payments/rejected'

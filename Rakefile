@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Gaj::Application.load_tasks
+SklepRowerowy::Application.load_tasks

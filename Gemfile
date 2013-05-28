@@ -2,9 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.13'
 
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
 gem 'pg'
 
 # Gems used only for assets and not required
@@ -15,7 +12,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem "therubyrhino" #an alternative to the ruby racer
+gem "therubyracer" #an alternative to the ruby racer
 
 gem 'jquery-rails'
 
@@ -36,8 +33,10 @@ gem "rails3-jquery-autocomplete"
 
 # Use unicorn as the web server
 # gem 'unicorn'
+
 group :production do
   gem "thin"
+  gem 'newrelic_rpm'
 end
 
 # Deploy with Capistrano
@@ -46,6 +45,7 @@ end
 group :development do
   gem 'capistrano'
   gem 'rvm-capistrano'
+
   # To use debugger
   #gem "ruby-debug-base19", "0.11.26"
   #gem 'ruby-debug19', :require => 'ruby-debug'
