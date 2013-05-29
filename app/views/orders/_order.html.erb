@@ -43,9 +43,7 @@
           <strong>UWAGA!</strong><br/>
           Nie została przekroczona minimalna wartość zamówienia(minimum: 9,49 zł).<br/>Do realizacji zamówienia brakuje
           jeszcze: <b><%= number_to_currency(9.49-total) %></b>
-          <br/>Przepraszamy za tą niedogodność,<br/>w zamian za to gwarantujemy ZAWSZE darmową przesyłkę.<br/>Polecamy
-          niedrogie i praktyczne poradniki z serii
-          <a href="http://wydawnictwogaj.pl/products?search[categories_id_eq]=22">Poradniki zielarskie</a><br/><br/>
+          <br/>Przepraszamy za tą niedogodność,<br/>w zamian za to gwarantujemy ZAWSZE darmową przesyłkę.<br/><br/>
         </div>
     <% else %>
         <p style="float: right; text-align: right;">
@@ -64,7 +62,7 @@
 
 <% if total < 9.49 %>
     <br/>
-    <h4>Polecane produkty z kategorii <a href="http://wydawnictwogaj.pl/products?search[categories_id_eq]=22">Poradniki zielarskie</a></h4>
+    <h4>Polecane produkty</h4>
     <div class="textSeparator"></div>
 
     <div id="product_list_items">

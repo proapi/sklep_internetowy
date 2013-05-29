@@ -1,12 +1,12 @@
 # encoding: utf-8
 
 class OrderMailer < ActionMailer::Base
-  default from: "WydawnictwoGaj <sklep@wydawnictwogaj.pl>"
+  default from: "PROAPI Michał Pawelski <kontakt@proapi.pl>"
 
   def order_1(order, shop)
     @order = order
-    shop ? (to = "WydawnictwoGaj <sklep@wydawnictwogaj.pl>") : (to = "#{order.full_name} <#{order.email}>")
-    shop ? (reply_to = "#{order.full_name} <#{order.email}>") : (reply_to = "WydawnictwoGaj <sklep@wydawnictwogaj.pl>")
+    shop ? (to = "PROAPI Michał Pawelski <kontakt@proapi.pl>") : (to = "#{order.full_name} <#{order.email}>")
+    shop ? (reply_to = "#{order.full_name} <#{order.email}>") : (reply_to = "PROAPI Michał Pawelski <kontakt@proapi.pl>")
     mail(to: to, subject: "Zamówienie nr #{order.number}", reply_to: reply_to)
   end
 

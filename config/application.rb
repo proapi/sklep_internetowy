@@ -40,7 +40,7 @@ module SklepRowerowy
     config.filter_parameters += [:password, :password_confirmation]
 
     # potrzebne do generowania linkow z poziomu widokow mailera
-    config.action_mailer.default_url_options = { :host => "www.wydawnictwogaj.pl" }
+    config.action_mailer.default_url_options = { :host => "www.proapi.eu" }
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,

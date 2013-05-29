@@ -26,7 +26,7 @@
 
   <% if @order.payment.eql?(2) %>
       <div style="text-align: center; margin-top: 20px;">
-        <p style="text-align: justify;">Zapraszamy do dokonania płatności elektronicznej za pomocą serwisu PayU - Platnosci.pl<br/>Po dokonaniu płatności w zewnętrznym serwisie zostaną Państwo przekierowani z powrotem do sklepu Wydawnictwa Gaj.</p><br/>
+        <p style="text-align: justify;">Zapraszamy do dokonania płatności elektronicznej za pomocą serwisu PayU - Platnosci.pl<br/>Po dokonaniu płatności w zewnętrznym serwisie zostaną Państwo przekierowani z powrotem do sklepu.</p><br/>
         <%# TODO w produkcji zmienić tutaj dane z sandbox na właściwe informacje! %>
         <form action="https://sandbox.payu.pl/paygw/UTF/NewPayment" method="POST" name="payform">
           <input type="hidden" name="first_name" value="<%= @order.client.name.blank? ? '' : @order.client.name %>">

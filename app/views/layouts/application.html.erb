@@ -6,14 +6,14 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
   <meta http-equiv="content-language" content="pl"/>
   <meta name="author" content="Michał Pawelski - kontakt@proapi.pl"/>
-  <link rel="shortcut icon" href="http://www.wydawnictwogaj.pl/favicon.ico"/>
-  <meta name="Distribution" content="Global"/>
-  <meta name="Robots" content="index,follow"/>
+  <link rel="shortcut icon" href=""/>
+  <meta name="distribution" content="Global"/>
+  <meta name="robots" content="index,follow"/>
 
   <%= yield_or :meta do %>
-      <title>Wydawnictwo Gaj</title>
-      <meta name="keywords" content="poradnik, ksiezycowy, ekologiczny, zielarskie, poradniki, apteczka, zdrowia, zdrowie, ekologia, zbigniew przybylak, eko arka, biokurier"/>
-      <meta name="description" content="Ekologiczny Poradnik Księżycowy, Poradniki Zielarskie, Żywność Ekologiczna, Ogrodnictwo Ekologiczne - Wydawnictwo Gaj, nasze tematy to zdrowie i ekologia"/>
+      <title>Sklep rowerowy</title>
+      <meta name="keywords" content=""/>
+      <meta name="description" content=""/>
   <% end %>
 
   <!--[if lt IE 6]>
@@ -131,25 +131,6 @@
           document.write('</style>');
       }
   </script>
-
-  <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-11772508-3']);
-      _gaq.push(['_trackPageview']);
-
-      (function () {
-          var ga = document.createElement('script');
-          ga.type = 'text/javascript';
-          ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(ga, s);
-      })();
-
-  </script>
-  <script type="text/javascript">var addthis_config = {"data_track_clickback": true, ui_language: "pl"};</script>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e0c52943afd5c82"></script>
-
 </head>
 <body>
 <div id="mainLayoutLayer0">
@@ -159,11 +140,12 @@
 <div id="leftTopMenu" onclick="location.href='/';">
 </div>
 <div id="topMenu">
+  <!--
   <%= link_to "O NAS", site_entries_path(:title => "O nas") %> ::
   <%= link_to "WSPÓŁPRACA", site_entries_path(:title => "Współpraca") %> ::
   <%= link_to "KONTAKT", site_entries_path(:title => "Kontakt") %> ::
   <%= link_to "REGULAMIN", site_entries_path(:title => "Regulamin") %> ::
-  <%= link_to "ZASADY WYSYŁKI", site_entries_path(:title => "Zasady wysyłki") %>
+  <%= link_to "ZASADY WYSYŁKI", site_entries_path(:title => "Zasady wysyłki") %>-->
 </div>
 <div class="noFloat"></div>
 <div id="logoLinkDiv">
@@ -174,26 +156,15 @@
   <div id="mainMenuRightSide"></div>
   <!-- ################### powtarzalny elementy menu (od prawej!) ################# -->
   <div class="mainMenuItem">
-    <div class="mainMenuItemText"><%= link_to "EKO OGRÓD", site_entries_path(:title => "Eko ogród") %></div>
-  </div>
-  <div class="mainMenuItem">
-    <div class="mainMenuItemText"><%= link_to "CZASOPISMA", site_entries_path(:title => "Czasopisma") %></div>
+    <div class="mainMenuItemText"><%= link_to "KONTAKT", articles_path %></div>
     <div class="mainMenuItemSeparator"></div>
   </div>
   <div class="mainMenuItem">
-    <div class="mainMenuItemText"><%= link_to "EKO SMAK", site_entries_path(:title => "Eko smak") %></div>
+    <div class="mainMenuItemText"><%= link_to "O NAS", articles_path %></div>
     <div class="mainMenuItemSeparator"></div>
   </div>
   <div class="mainMenuItem">
-    <div class="mainMenuItemText"><%= link_to "APTECZKA ZDROWIA", site_entries_path(:title => "Apteczka zdrowia") %></div>
-    <div class="mainMenuItemSeparator"></div>
-  </div>
-  <div class="mainMenuItem">
-    <div class="mainMenuItemText"><%= link_to "PORADNIKI ZIELARSKIE", site_entries_path(:title => "Poradniki zielarskie") %></div>
-    <div class="mainMenuItemSeparator"></div>
-  </div>
-  <div class="mainMenuItem">
-    <div class="mainMenuItemText"><%= link_to "PORADNIK KSIĘŻYCOWY", site_entries_path(:title => "Poradnik księżycowy") %></div>
+    <div class="mainMenuItemText"><%= link_to "KONFIGURATOR", articles_path %></div>
     <div class="mainMenuItemSeparator"></div>
   </div>
   <div class="mainMenuItem">
@@ -230,7 +201,7 @@
   <div class="columnRoundedHeaderBox">
     <div class="columnRoundedHeaderBoxDot">
       <div class="columnRoundedHeaderBoxText">
-        KSIĄŻKI
+        KATEGORIE
       </div>
     </div>
   </div>
@@ -270,6 +241,9 @@
   </div>
   <div class="columnContentBox">
     <%= render :partial => "products/product_box", :collection => Product.random, :spacer_template => "shared/separator" %>
+    <div style="padding-top: 25px; padding-bottom: 25px; text-align: center; font-weight: bold;">
+      Aktualnie brak produktów.
+    </div>
   </div>
   <div class="columnRoundedFooterBox"></div>
   <!-- pojedynczy box z lewej ##KONIEC## -->
@@ -282,22 +256,9 @@
     </div>
   </div>
   <div class="columnContentBox">
-    <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FWydawnictwo-Gaj%2F156363404431617&amp;width=180&amp;colorscheme=light&amp;connections=4&amp;stream=false&amp;header=true&amp;height=385" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:180px; height:385px; margin: 0 auto;" allowTransparency="true"></iframe>
-  </div>
-  <div class="columnRoundedFooterBox"></div>
-  <!-- pojedynczy box z lewej ##KONIEC## -->
-  <!-- pojedynczy box z lewej  (prostokatny) ##POCZATEK## -->
-  <div class="columnRoundedHeaderBox">
-    <div class="columnRoundedHeaderBoxDot">
-      <div class="columnRoundedHeaderBoxText">
-        WYSYŁKA
-      </div>
+    <div style="padding-top: 25px; padding-bottom: 25px; text-align: center; font-weight: bold;">
+      Brak konta.
     </div>
-  </div>
-  <div class="columnContentBox" style="text-align: center;">
-    <%= link_to image_tag("http://media.paczkomaty.pl/2012/banery_statyczne/125x125_v5.jpg", width: '125px', height: '125px', alt: 'Paczkomaty InPost'), site_entries_path(:title => "Zasady wysyłki") %>
-    <br/><br/>
-    <%= link_to image_tag("graph/poczta.jpg", width: '160px'), site_entries_path(:title => "Zasady wysyłki") %>
   </div>
   <div class="columnRoundedFooterBox"></div>
   <!-- pojedynczy box z lewej ##KONIEC## -->
@@ -376,45 +337,6 @@
   </div>
   <div class="columnRoundedFooterBox"></div>
   <!-- pojedynczy box z prawej  (zaokraglony) ##KONIEC## -->
-  <!-- pojedynczy box z prawej (prostokatny) ##POCZATEK## -->
-  <div class="columnRoundedHeaderBox">
-    <div class="columnRoundedHeaderBoxDot">
-      <div class="columnRoundedHeaderBoxText">
-        SZYBKI KONTAKT
-      </div>
-    </div>
-  </div>
-  <div class="columnContentBox">
-    <div style="text-align: center;">
-      <%= image_tag("icons/email.png", :style => "vertical-align: middle;", :alt => "Adres email", :size => "28x28", :title => "Adres email", :class => "help") %>
-      <br/><b>sklep@wydawnictwogaj.pl</b><br/><br/>
-      <%= image_tag("icons/phone.png", :style => "vertical-align: middle;", :alt => "Numer telefonu", :size => "25x25", :title => "Numer telefonu", :class => "help") %>
-      <br/><b>52 581 52 90</b><br/>
-      pon-pt 9.00-15.00
-    </div>
-  </div>
-  <div class="columnRoundedFooterBox"></div>
-  <!-- pojedynczy box z prawej  (prostoakatny) ##KONIEC## -->
-  <!-- pojedynczy box z prawej (prostokatny) ##POCZATEK## -->
-  <div class="columnRoundedHeaderBox">
-    <div class="columnRoundedHeaderBoxDot">
-      <div class="columnRoundedHeaderBoxText">
-        NEWSLETTER
-      </div>
-    </div>
-  </div>
-  <div class="columnContentBox">
-    <div style="text-align: center;">
-      <div class="searchBox">
-        <form action="http://free4web.pl/AddMailingMember?18055" method="POST">
-          <input type="text" name="address" size="20" maxsize="250" class="inputbox" style="width: 100%; margin: 0 0 10px 0; padding: 0;" value="Wprowadź adres e-mail..." onblur="if(this.value=='') this.value='Wprowadź adres e-mail...';" onfocus="if(this.value=='Wprowadź adres e-mail...') this.value='';"><BR>
-          <input type="submit" name="q" value="Wyślij">
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="columnRoundedFooterBox"></div>
-  <!-- pojedynczy box z prawej  (prostokatny) ##KONIEC## -->
   <!-- pojedynczy box z prawej  (prostokatny) ##POCZATEK## -->
   <div class="columnRoundedHeaderBox">
     <div class="columnRoundedHeaderBoxDot">
@@ -445,6 +367,9 @@
   </div>
   <div class="columnContentBox">
     <%= render :partial => "products/product_box", :collection => Product.bestsellers, :spacer_template => "shared/separator" %>
+    <div style="padding-top: 25px; padding-bottom: 25px; text-align: center; font-weight: bold;">
+      Aktualnie brak produktów.
+    </div>
   </div>
   <div class="columnRoundedFooterBox"></div>
   <!-- pojedynczy box z prawej ##KONIEC## -->
@@ -458,6 +383,9 @@
   </div>
   <div class="columnContentBox">
     <%= render :partial => "products/product_box", :collection => Product.only_visible.order("created_at DESC").limit(2), :spacer_template => "shared/separator" %>
+    <div style="padding-top: 25px; padding-bottom: 25px; text-align: center; font-weight: bold;">
+      Aktualnie brak produktów.
+    </div>
   </div>
   <div class="columnRoundedFooterBox"></div>
   <!-- pojedynczy box z prawej  (prostokatny) ##KONIEC## -->
@@ -466,10 +394,6 @@
 </div>
 <div class="noFloat"></div>
 <div class="clearLeft"></div>
-</div>
-
-<div style="text-align: center;">
-  <%= image_tag "graph/payu_belka.png" %>
 </div>
 
 <div id="footer">
@@ -483,7 +407,7 @@
       <%= link_to "Kontakt", site_entries_path(:title => "Kontakt") %> |
       <%= link_to "Zasady wysyłki", site_entries_path(:title => "Zasady wysyłki") %>
     </div>
-    <div id="copyright">Copyright by Wydawnictwo Gaj / Eko Media (2011-...)</div>
+    <div id="copyright">Copyright by</div>
   </div>
 </div>
 </div>
